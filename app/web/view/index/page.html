@@ -1,0 +1,68 @@
+{include file="web@index/header" /}
+
+<!-- 联系我们 -->
+<section>
+    <div class="container-fluid">
+        <div class="row bg-white text-left">
+            <div class="col p-0 tbox">
+                <div class="title">
+                    <p class="">联系我们 / Contact Us</p>
+                </div>
+            </div>
+        </div>
+        <div class="row bg-white">
+            <div class="col">
+                <div class="row pb-3 align-items-center">
+                    <div class="col-12 col-md-6 pl-3 pr-3 order-md-12">
+                        <img class="img-fluid" src="../statics/index/images/company.jpg" alt="">
+                    </div>
+                    <div class="col-12 col-md-6 pt-3 pb-3 order-md-1 lh-3 h8">
+                        {voList name="noteList" id="note"}
+                        <p class="ti-2">{$note}</p>
+                        {/voList}
+                    </div>
+                </div>
+                <div class="row pb-3 align-items-center">
+                    <div class="col-12 col-md-6 pl-3 pr-3">
+                        <img class="img-fluid" src="../statics/index/images/ContactUs.jpg" alt="">
+                    </div>
+                    <div class="col-12 col-md-6 pt-3 pb-3 h8">
+                        <dl class="row lh-3">
+                            {if $Think.config.company.name != "" }
+                            <dt class="col-sm-3">公司：</dt>
+                            <dd class="col-sm-9 text-muted">{$Think.config.company.name}</dd>
+                            {/if}
+                            {if $Think.config.company.address != "" }
+                            <dt class="col-sm-3">地址：</dt>
+                            <dd class="col-sm-9 text-muted">{$Think.config.company.address}</dd>
+                            {/if}
+                            {if $Think.config.company.contacts != "" }
+                            <dt class="col-sm-3">联系人：</dt>
+                            <dd class="col-sm-9 text-muted">{$Think.config.company.contacts}</dd>
+                            {/if}
+                            {if $Think.config.company.number != "" }
+                            <dt class="col-sm-3">电话：</dt>
+                            <dd class="col-sm-9 text-muted">{$Think.config.company.number}</dd>
+                            {/if}
+                            {if $Think.config.company.wechat != "" }
+                            <dt class="col-sm-3">微信：</dt>
+                            <dd class="col-sm-9 text-muted">{$Think.config.company.wechat}</dd>
+                            {/if}
+                            {if $Think.config.company.qq != "" }
+                            <dt class="col-sm-3">QQ：</dt>
+                            <dd class="col-sm-9 text-muted">{$Think.config.company.qq}</dd>
+                            {/if}
+                            {if $Think.config.company.email != "" }
+                            <dt class="col-sm-3">邮箱：</dt>
+                            <dd class="col-sm-9 text-muted">{$Think.config.company.email}</dd>
+                            {/if}
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pb-3"></div>
+    </div>
+</section>
+
+{include file="web@index/footer" /}

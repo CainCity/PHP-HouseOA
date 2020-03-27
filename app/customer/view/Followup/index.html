@@ -1,0 +1,147 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+          <input type="hidden" value="0" id="count">
+
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text datetimepicker-input" id="search-datetime-start" placeholder="开始日期">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text datetimepicker-input" id="search-datetime-end" placeholder="截止日期">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select class="select" id="atype">
+                    <option value="">全部类型</option>
+                    {voList name="aList" id="l"}
+                    <option value="{$l.id}">{$l.name}</option>
+                    {/voList}
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="sCustomerName" placeholder="客户名称">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="saName" placeholder="跟进人">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="sDescription" placeholder="内容">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <button type="button" class="btn btn-success radius" onclick="RefreshTable(true)"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-20">
+      <div class="panel-body">
+        <div class="clearfix">
+          <table class="table table-border table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+              <th width="80">唯一码</th>
+              <th width="60">类型</th>
+              <th width="80">客户姓名</th>
+              <th width="500">跟进内容</th>
+              <th width="120">跟进人</th>
+              <th width="120">跟进时间</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/indexjs" /}
+
+<script type="text/javascript">
+  var myDataTable;
+
+  $(function(){
+    initData();
+    initBind();
+  });
+
+  function initData() {
+    var myDate = new Date();
+    $('#search-datetime-start').val(myDate.Format("yyyy-MM-dd"));
+    $('#search-datetime-end').val(myDate.Format("yyyy-MM-dd"));
+  }
+
+  function initBind() {
+    runDatetimePicker(); // 实例化日期控件
+    initDataTable('.table-sort', 'Followup');
+  }
+
+  function retrieveData( sSource, aoData, fnCallback ) {
+    aoData.push(
+            {"name": "dateMin", "value": $('#search-datetime-start').val()},
+            {"name": "dateMax", "value": $('#search-datetime-end').val()},
+            {"name": "atype", "value": $('#atype').val()},
+            {"name": "CustomerName", "value": $('#sCustomerName').val()},
+            {"name": "aName", "value": $('#saName').val()},
+            {"name": "Description", "value": $('#sDescription').val()},
+            {"name": "count", "value": $('#count').val()}
+    );
+
+    $.ajax({
+      "type": "post",
+      "url": sSource,
+      "data": {aoData: JSON.stringify(aoData)}, // 以json格式传递
+      "dataType": "json",
+      "async": false,
+      "success": function (result) {
+        $('#count').val(result['iTotalRecords']);
+        fnCallback(result);
+      }
+    });
+  }
+
+</script>
+
+{include file="template/footer" /}

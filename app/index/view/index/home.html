@@ -1,0 +1,87 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+    <article class="Hui-admin-content clearfix">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="clearfix">
+                    <span class="">
+                        <p>本次为第{$aData['count']}次登录</p>
+                        {if condition="$aData['count'] > 1"}
+                        <p>上次登录时间：{$aData['cTime']}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            上次登录IP：{$aData['ip']}</p>
+                        {/if}
+                        <p>本次登录时间：{$aData['cTime_last']}
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            本次登录IP：{$aData['ip_last']}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel mt-20">
+            <div class="panel-body">
+                <div class="clearfix">
+                    <table class="table table-border table-bg table-sort">
+                        <thead>
+                        <tr class="text-c">
+                            <th width="80">姓名</th>
+                            <th width="80">最近成交日期</th>
+                            <th width="100">连续未开单天数</th>
+                            <th width="80">当前私客数量</th>
+                            <th width="120">最后登录时间</th>
+                            <th width="100">最后登录IP</th>
+                            <th width="500"></th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
+{include file="template/indexjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="../lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin.pro.iframe/js/h-ui.admin.pro.iframe.min.js"></script>
+<script type="text/javascript" src="../lib/datatables/1.10.15/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../static/business/js/main.js"></script>
+
+<script type="text/javascript" src="../static/xoa/js/tool.js"></script>
+<script type="text/javascript">
+    let myDataTable;
+
+    $(function(){
+        initBind();
+    });
+
+    function initBind() {
+        let o = new Array();
+        o['aoColumnDefs'] = null;
+        initDataTable('.table-sort', "{:url('Report/notSaleDayStatistics')}", o);
+    }
+
+    function retrieveData( sSource, aoData, fnCallback ) {
+        aoData.push();
+
+        $.ajax({
+            "type": "post",
+            "url": sSource,
+            "data": {aoData: JSON.stringify(aoData)}, // 以json格式传递
+            "dataType": "json",
+            "async": false,
+            "success": function (result) {
+                $('#count').val(result['iTotalRecords']);
+                fnCallback(result);
+            }
+        });
+    }
+</script>
+</body>
+</html>

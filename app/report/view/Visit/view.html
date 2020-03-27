@@ -1,0 +1,91 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="clearfix">
+          <form class="form form-horizontal" id="form-menu-edit" method="post">
+            <input type="hidden" value="{$list.id}" id="id" name="id">
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">访问时间：</label>
+              <div class="form-controls col-xs-12 col-sm-3">
+                <input type="text" class="input-text" value="{$list.cTime}" >
+              </div>
+              <div class="form-controls col-xs-12 col-sm-7">
+                <input type="text" class="input-text" value="{$list.URL}" >
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">访问项目：</label>
+              <div class="form-controls col-xs-12 col-sm-3">
+                <input type="text" class="input-text" value="{$list.itemName}" >
+              </div>
+              <div class="form-controls col-xs-12 col-sm-7">
+                <input type="text" class="input-text" value="{$list.keyword}" >
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">访问IP：</label>
+              <div class="form-controls col-xs-12 col-sm-3">
+                <input type="text" class="input-text" value="{$list.IP}" >
+              </div>
+              <div class="form-controls col-xs-12 col-sm-3">
+                <input type="text" class="input-text" value="{$list.ISP}" >
+              </div>
+              <div class="form-controls col-xs-12 col-sm-4">
+                <input type="text" class="input-text" value="{$list.area}" >
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">搜索引擎：</label>
+              <div class="form-controls col-xs-12 col-sm-3">
+                <input type="text" class="input-text" value="{$list.searchEngines}" >
+              </div>
+              <div class="form-controls col-xs-12 col-sm-3">
+                <input type="text" class="input-text" value="{$list.device}" >
+              </div>
+              <div class="form-controls col-xs-12 col-sm-4">
+                <input type="text" class="input-text" value="{$list.brand}" >
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">客户端信息：</label>
+              <div class="form-controls col-xs-12 col-sm-10">
+                <textarea class="textarea" dragonfly="true">{$list.userAgent}</textarea>
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <div class="col-xs-12 col-sm-10  col-sm-offset-2">
+                <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function() {
+    initBind();
+  });
+
+  function initBind() {
+    $('input,select,textarea').prop('readonly',true);
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+{include file="template/footer" /}

@@ -1,0 +1,156 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+          <input type="hidden" id="count" value="0" >
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select id="sDateType" class="select">
+                    <option value="1">操作日期</option>
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text datetimepicker-input" id="search-datetime-start" placeholder="开始日期" >
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text datetimepicker-input" id="search-datetime-end" placeholder="截止日期" >
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select id="sType" class="select">
+                    <option value="0">全部</option>
+                    <option value="登录">登录</option>
+                    <option value="注销">注销</option>
+                    <option value="修改密码">修改密码</option>
+                    <option value="查看全号">查看全号</option>
+                    <option value="登录失败">登录失败</option>
+                    <option value="系统任务">系统任务</option>
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" id="sUserName" class="input-text" placeholder="输入用户" >
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" id="sDescription" class="input-text" placeholder="输入内容" >
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <button type="button" class="btn btn-success radius" onclick="RefreshTable(true)"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-20">
+      <div class="panel-body">
+        <div class="clearfix">
+          <table class="table table-border table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+              <th width="80">数据来源</th>
+              <th width="100">IP地址</th>
+              <th width="80">操作类型</th>
+              <th width="500">操作内容</th>
+              <th width="80">操作用户</th>
+              <th width="120">操作时间</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/indexjs" /}
+
+<script type="text/javascript">
+  var myDataTable;
+
+  $(function(){
+    initData();
+    initBind();
+  });
+
+  function initData() {
+    var myDate = new Date();
+    $('#search-datetime-start').val(myDate.Format("yyyy-MM-dd"));
+    $('#search-datetime-end').val(myDate.Format("yyyy-MM-dd"));
+  }
+
+  function initBind() {
+    runDatetimePicker(); // 实例化日期控件
+
+    var o = new Array();
+    o['aoColumnDefs'] = null;
+    initDataTable('.table-sort', 'ActionLog', o);
+  }
+
+  function retrieveData( sSource, aoData, fnCallback ) {
+    aoData.push(
+            {"name": "sdatetype", "value": $('#sDateType').val()},
+            {"name": "dateMin", "value": $('#search-datetime-start').val()},
+            {"name": "dateMax", "value": $('#search-datetime-end').val()},
+            {"name": "stype", "value": $('#sType').val()},
+            {"name": "susername", "value": $('#sUserName').val()},
+            {"name": "sdescription", "value": $('#sDescription').val()},
+            {"name": "count", "value": $('#count').val()}
+    );
+
+    $.ajax({
+      "type": "post",
+      "url": sSource,
+      "data": {aoData: JSON.stringify(aoData)}, // 以json格式传递
+      "dataType": "json",
+      "async": false,
+      "success": function (result) {
+        $('#count').val(result['iTotalRecords']);
+        fnCallback(result);
+      }
+    });
+  }
+</script>
+
+{include file="template/footer" /}

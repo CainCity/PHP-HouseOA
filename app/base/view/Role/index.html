@@ -1,0 +1,110 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select class="select" id="sStatus" name="sStatus">
+                    <option value="0">全部状态</option>
+                    <option value="1">已停用</option>
+                    <option value="2">已启用</option>
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="sName" placeholder="输入角色">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <button type="button" class="btn btn-success radius" onclick="RefreshTable(true)"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-body">
+        <div class="clearfix">
+          <span class="f-l">
+              <button type="button" class="btn btn-primary radius" onclick="openFrom('添加','RoleAdd')"><i class="Hui-iconfont">&#xe600;</i> 添加</button>
+              <button type="button" class="btn btn-primary radius" onclick="openNewFrom('编辑','RoleEdit?id=')"><i class="Hui-iconfont">&#xe6df;</i> 编辑</button>
+          </span>
+        </div>
+
+        <div class="clearfix mt-20">
+          <table class="table table-border table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+              <th width="250">唯一码</th>
+              <th width="100">角色</th>
+              <th width="400">描述</th>
+              <th width="60">状态</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/indexjs" /}
+
+<script type="text/javascript">
+    var myDataTable;
+
+    $(function(){
+      initData();
+      initBind();
+    });
+
+    function initData() {
+      $('#sStatus').val('2');
+    }
+
+    function initBind() {
+      var o = new Array();
+      o['aoColumns'] = [
+        {"sClass": ""},
+        {"sClass": ""},
+        {"sClass": ""},
+        {"sClass": "td-status"}
+      ];
+      initDataTable('.table-sort', "{:url('Role')}", o);
+      tabledblclick('.table-sort', '编辑', 'RoleEdit');
+    }
+
+    function retrieveData( sSource, aoData, fnCallback ) {
+        aoData.push(
+            {"name": "status", "value": $('#sStatus').val()},
+            {"name": "sName", "value": $('#sName').val()}
+        );
+
+        postData(sSource, aoData, fnCallback);
+    }
+
+    function changeStatus(obj,id) {
+        _changeStatus(obj, id, "{:url('RoleChangeStatus')}");
+    }
+</script>
+
+{include file="template/footer" /}

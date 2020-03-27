@@ -1,0 +1,23 @@
+<!-- 优惠政策 -->
+<div class="row text-white pb-3">
+    <div class="col-12">
+        <button type="button" class="coupon coupon-bg-bb"
+                data-toggle="modal"
+                data-target="#consultationModal"
+                data-whatever="团购优惠|{$Think.config.company.400}">
+            <div class="content">
+                <img src="../statics/index/images/icon_1.png">
+                <div class="n">
+                    <p class="title">团购优惠</p>
+
+                    {voList name="data.note1" id="r"}
+                    <p class="p-0 m-0">{$r}</p>
+                    {/voList}
+                </div>
+            </div>
+            <div class="l">
+                点击<br>领取
+            </div>
+        </button>
+    </div>
+</div>

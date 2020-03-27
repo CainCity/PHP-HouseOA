@@ -1,0 +1,213 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+          <input type="hidden" id="count" value="0" >
+          {if $list.aTeamId != ''}
+          <input type="hidden" id="teamId" value="{$list.aTeamId}" >
+          {/if}
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <span class="select-box">
+              <select class="select" id="sDateType">
+                <option value="cTime" >录入日期</option>
+                <option value="uTime" selected >最后修改日期</option>
+              </select>
+            </span>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text datetimepicker-input" id="search-datetime-start" placeholder="开始日期" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text datetimepicker-input" id="search-datetime-end" placeholder="截止日期" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <span class="select-box">
+              <select id="bType" class="select">
+                <option value="">分类:全部</option>
+                {voList name="dList" id="dl"}
+                <option value="{$dl.id}" {if condition="$dl.id eq 'd4ccd372-6a8d-11e7-ab6e-00163e004198'"}selected{/if} >分类:{$dl.name}</option>
+                {/voList}
+              </select>
+            </span>
+          </div>
+
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <span class="select-box">
+              <select id="isTrue" class="select">
+                <option value="">状态:全部</option>
+                <option value="1" selected >状态:有效</option>
+                <option value="2">状态:无效</option>
+              </select>
+            </span>
+          </div>
+
+          {if $list.aType == ''}
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <span class="select-box">
+              <select id="aType" class="select">
+                <option value="">类型:全部</option>
+                {voList name="aList" id="al"}
+                <option value="{$al.id}" {if condition="$al.id eq $list.aType"}selected{/if} >类型:{$al.name}</option>
+                {/voList}
+              </select>
+            </span>
+          </div>
+          {/if}
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <span class="select-box">
+              <select id="source" class="select">
+                <option value="">来源:全部</option>
+                {voList name="bList" id="bl"}
+                <option value="{$bl.id}">来源:{$bl.name}</option>
+                {/voList}
+              </select>
+            </span>
+          </div>
+
+          {if $list.aTeamId == ''}
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <span class="select-box">
+              <select id="teamId" class="select">
+                {voList name="eList" id="al"}
+                <option value="{$al.id}" {if condition="$al.id eq $list.aTeamId"}selected{/if} >团队:{$al.name}</option>
+                {/voList}
+              </select>
+            </span>
+          </div>
+          {/if}
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text" id="sName" placeholder="客户" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text" id="sTel" placeholder="电话" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text" id="sItem" placeholder="项目" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text" id="sDescription" placeholder="综合" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text" id="sCreateName" placeholder="录入人" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text" id="sUpdateName" placeholder="修改人" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text" id="saName" placeholder="归属人" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <button type="button" class="btn btn-success radius" onclick="RefreshTable(true)"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-20">
+      <div class="panel-body">
+        <div class="clearfix">
+          <span class="f-l">
+            {if $list.aTeamId != ''}
+            <button type="button" class="btn btn-primary radius" onclick="openFrom('添加','CustomerAdd?aTeamId={$list.aTeamId}')" ><i class="Hui-iconfont">&#xe600;</i> 添加</button>
+            {else}
+            <button type="button" class="btn btn-primary radius" onclick="openFrom('添加','CustomerAdd')" ><i class="Hui-iconfont">&#xe600;</i> 添加</button>
+            {/if}
+            <button type="button" class="btn btn-primary radius" onclick="openNewFrom('编辑','CustomerEdit?id=')" ><i class="Hui-iconfont">&#xe60c;</i> 编辑</button>
+          </span>
+        </div>
+
+        <div class="clearfix mt-20">
+          <table class="table table-border table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+              <th width="250">唯一码</th>
+              <th width="100">类型</th>
+              <th width="100">客户</th>
+              <th width="300">项目</th>
+              <th width="330">备注</th>
+              <th width="200">最后修改</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/indexjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  var myDataTable;
+
+  $(function(){
+    initBind();
+  });
+
+  function initBind() {
+    runDatetimePicker(); // 实例化日期控件
+
+    initDataTable('.table-sort', 'Customer');
+    tabledblclick('.table-sort', '编辑', 'CustomerEdit');
+  }
+
+  function retrieveData( sSource, aoData, fnCallback) {
+    aoData.push(
+            {"name": "DateType", "value": $('#sDateType').val()},
+            {"name": "dateMin", "value": $('#search-datetime-start').val()},
+            {"name": "dateMax", "value": $('#search-datetime-end').val()},
+            {"name": "Name", "value": $('#sName').val()},
+            {"name": "Tel", "value": $('#sTel').val()},
+            {"name": "aType", "value": $('#aType').val()},
+            {"name": "bType", "value": $('#bType').val()},
+            {"name": "Source", "value": $('#source').val()},
+            {"name": "isTrue", "value": $('#isTrue').val()},
+            {"name": "Item", "value": $('#sItem').val()},
+            {"name": "Description", "value": $('#sDescription').val()},
+            {"name": "CreateName", "value": $('#sCreateName').val()},
+            {"name": "UpdateName", "value": $('#sUpdateName').val()},
+            {"name": "aName", "value": $('#saName').val()},
+            {"name": "count", "value": $('#count').val()},
+            {"name": "teamId", "value": $('#teamId').val()}
+    );
+
+    $.ajax({
+      "type": "post",
+      "url": sSource,
+      "data": {aoData: JSON.stringify(aoData)}, // 以json格式传递
+      "dataType": "json",
+      "async": false,
+      "success": function (result) {
+        $('#count').val(result['iTotalRecords']);
+        fnCallback(result);
+      }
+    });
+  }
+
+  function Message(msg) {
+    //RefreshTable(false);
+    layer.msg(msg, {icon: 6, time: 1000});
+  }
+</script>
+
+{include file="template/footer" /}

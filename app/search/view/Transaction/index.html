@@ -1,0 +1,134 @@
+{include file="template/head" /}
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select class="select" id="aType">
+                    <option value="0">全部类型</option>
+                    {voList name="aList" id="al"}
+                    <option value="{$al.id}" {if condition="$al.name eq '结佣'"}selected{/if}>{$al.name}</option>
+                    {/voList}
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="sItemName" placeholder="输入项目">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="sCode" placeholder="输入单号">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="sCustName" placeholder="输入客户">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <button type="button" class="btn btn-success radius" onclick="RefreshTable()"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+                <button type="button" class="btn btn-primary radius" onclick="getTableContent()"><i class="Hui-iconfont">&#xe6a7;</i> 选择</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-20">
+      <div class="panel-body">
+        <div class="clearfix">
+          <table class="table table-border table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+              <th width="250">唯一码</th>
+              <th width="80">单号</th>
+              <th width="40">状态</th>
+              <th width="500">内容</th>
+              <th width="70">认购日期</th>
+              <th width="70">签约日期</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/indexjs" /}
+<link rel="stylesheet" href="../lib/Hui-iconfont/1.0.7/iconfont.css">
+
+<script type="text/javascript">
+  var myDataTable;
+
+  $(function(){
+    initDataTable(".table-sort", 'Transaction');
+  });
+
+  function getTableContent(){
+    var data = new Array();
+
+    var nTrs = myDataTable.fnGetNodes();//fnGetNodes获取表格所有行，nTrs[i]表示第i行tr对象
+    for(var i = 0; i < nTrs.length; i++){
+      if($(nTrs[i]).hasClass('selected')){
+        data[0] = myDataTable.fnGetData(nTrs[i])[0];
+        data[1] = myDataTable.fnGetData(nTrs[i])[1];
+        data[2] = myDataTable.fnGetData(nTrs[i])[2];
+        data[3] = myDataTable.fnGetData(nTrs[i])[3];
+      }
+    }
+
+    if (data.length != 0) {
+      parent.setTransactionData(data);
+      layer_close();
+    } else {
+      layer.msg('请选择!',{icon: 5,time:1000})
+    }
+  }
+
+  function retrieveData( sSource, aoData, fnCallback ) {
+    aoData.push(
+      {"name": "aType", "value": $('#aType').val()},
+      {"name": "sItemName", "value": $('#sItemName').val()},
+      {"name": "sCode", "value": $('#sCode').val()},
+      {"name": "sCustName", "value": $('#sCustName').val()}
+    );
+
+    $.ajax({
+      "type": "post",
+      "url": sSource,
+      "data": {aoData: JSON.stringify(aoData)}, // 以json格式传递
+      "dataType": "json",
+      "async": false,
+      "success": function (result) {
+        fnCallback(result);
+      }
+    });
+  }
+</script>
+
+{include file="template/footer" /}

@@ -1,0 +1,159 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <form class="form form-horizontal" id="form-add" method="post">
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>一级菜单：</label>
+            <div class="form-controls col-xs-12 col-sm-10">
+              <span class="select-box">
+                <select class="select" id="pid1" onchange="loadMenuTwo(this.value);" >
+                  <option value="0">顶级目录</option>
+                  {voList name="aList" id="r"}
+                  <option value="{$r.id}">{$r.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2">二级菜单：</label>
+            <div class="form-controls col-xs-12 col-sm-10">
+              <span class="select-box">
+                <select class="select" id="pid2" >
+                  <option value="0"></option>
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>菜单名称：</label>
+            <div class="form-controls col-xs-12 col-sm-10">
+              <input type="text" class="input-text" id="menuName">
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <input type="hidden" id="menuIcon" >
+            <label class="form-label col-xs-12 col-sm-2"> ICON：</label>
+            <div id="iconCode" class="form-controls col-xs-12 col-sm-8"></div>
+            <div class="form-controls col-xs-12 col-sm-1">
+              <input type="button" class="btn btn-primary radius" value="选择" onclick="openFrom('选择','../search/Icon')" >
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2">链接地址：</label>
+            <div class="form-controls col-xs-12 col-sm-10">
+              <input type="text" class="input-text" id="menuUrl">
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>排序号：</label>
+            <div class="form-controls col-xs-12 col-sm-10">
+              <input type="text" class="input-text" id="mSort">
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2">描述：</label>
+            <div class="form-controls col-xs-12 col-sm-10">
+              <textarea class="textarea textarea-article" id="description" placeholder="100个字符以内" ></textarea>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <div class="col-xs-9 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+              <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+              <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function(){
+    initBind();
+  });
+
+  function initBind() {
+    $("#form-add").validate({
+      rules: {
+        menuName: {required: true, minlength: 2, maxlength: 16},
+        pid: {required: true},
+        status: {required: true},
+        mSort: {required: true}
+      },
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        //$(form).ajaxSubmit();
+        var aoData = new Array();
+        aoData.push(
+                {"name": "pid1", "value": $('#pid1').val()},
+                {"name": "pid2", "value": $('#pid2').val()},
+                {"name": "menuName", "value": $('#menuName').val()},
+                {"name": "menuIcon", "value": $('#menuIcon').val()},
+                {"name": "menuUrl", "value": $('#menuUrl').val()},
+                {"name": "mSort", "value": $('#mSort').val()},
+                {"name": "description", "value": $('#description').val()}
+        );
+
+        layer.confirm('确认保存吗？', function () {
+          $.ajax({
+            "type": "post",
+            "url": "MenuAdd",
+            "data": {aoData: JSON.stringify(aoData)}, // 以json格式传递
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['msg'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  parent.Message(result['msg']);
+                  layer_close();
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 100
+    });
+  }
+
+  function loadMenuTwo(id) {
+    _getData({id: id}, "{:url('getMenuTwo')}", "#pid2", "");
+  }
+
+  function setFromData(data, sign) {
+    switch (sign) {
+      case 'icon':
+        $("#menuIcon").val(data[0]);
+        $("#iconCode").html(data[2]);
+        break;
+    }
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+{include file="template/footer" /}

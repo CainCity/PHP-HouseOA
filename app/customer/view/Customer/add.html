@@ -1,0 +1,209 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <form class="form form-horizontal" id="form-add" method="post">
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span> 来源：</label>
+            <div class="form-controls col-xs-12 col-sm-4">
+              <span class="select-box">
+                <select class="select" name="source">
+                  {voList name="bList" id="bl"}
+                  <option value="{$bl.id}">{$bl.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+
+            <div class="form-controls col-xs-12 col-sm-3">
+              <span class="select-box">
+                <select class="select" id="level" name="level">
+                  <option></option>
+                  {voList name="cList" id="cl"}
+                  <option value="{$cl.id}">{$cl.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+
+            <div class="form-controls col-xs-12 col-sm-3">
+              <span class="select-box">
+                <select class="select" id="atype" name="atype">
+                  {voList name="aList" id="al"}
+                  <option value="{$al.id}">{$al.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"> 姓名：</label>
+            <div class="form-controls col-xs-12 col-sm-7">
+              <input type="text" class="input-text" name="name">
+            </div>
+            <div class="form-controls col-xs-12 col-sm-3">
+              <span class="select-box">
+                <select name="sex" class="select">
+                  <option value="0">未知</option>
+                  <option value="1" selected>先生</option>
+                  <option value="2">女士</option>
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span> 电话：</label>
+            <div class="form-controls col-xs-12 col-sm-7">
+              <input type="text" class="input-text" id="tel" name="tel">
+            </div>
+
+            <div class="form-controls col-xs-12 col-sm-3">
+              {if $list.aTeamId == ''}
+              <span class="select-box">
+                <select class="select" id="orgid" name="orgid">
+                  {voList name="dList" id="al"}
+                  <option value="{$al.id}">{$al.name}</option>
+                  {/voList}
+                </select>
+              </span>
+              {else}
+              <input id="orgid" name="orgid" type="hidden" class="input-text" value="{$list.aTeamId}">
+              <span class="select-box">
+                <select class="select" disabled="disabled">
+                  {voList name="dList" id="al"}
+                  <option value="{$al.id}" {if condition="$al.id eq $list.aTeamId"}selected{/if}>{$al.name}</option>
+                  {/voList}
+                </select>
+              </span>
+              {/if}
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2">归属人：</label>
+            <div class="form-controls col-xs-12 col-sm-7">
+              <input type="hidden" id="aid" name="aid">
+              <input type="text" class="input-text" id="aname" disabled="disabled">
+            </div>
+            <div class="form-controls col-xs-12 col-sm-3">
+              <input type="button" class="btn btn-primary radius" value="选择" onclick="openFrom('选择','../search/User')">
+              <input type="button" class="btn btn-primary radius" value="清空" onclick="clearData('aname')">
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"> 项目：</label>
+            <div class="form-controls col-xs-12 col-sm-7">
+              <input type="hidden" id="itemid" name="itemid">
+              <input type="text" class="input-text" id="itemname" disabled="disabled">
+            </div>
+            <div class="form-controls col-xs-12 col-sm-3">
+              <button type="button" class="btn btn-primary radius" onclick="openFrom('选择','../search/Item')">选择</button>
+              <button type="button" class="btn btn-primary radius" onclick="clearData('itemname')">清空</button>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"> 备注：</label>
+            <div class="form-controls col-xs-12 col-sm-10">
+              <textarea class="textarea textarea-article" name="description" placeholder="100个字符以内"></textarea>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <div class="col-xs-7 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+              <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+              <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function() {
+    initBind();
+  });
+
+  function initBind() {
+    $("#form-add").validate({
+      rules: {
+        tel: {required: true},
+        description: {required: true}
+      },
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        //$(form).ajaxSubmit();
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "CustomerAdd",
+            "data": $('#form-add').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  parent.Message(result['message']);
+                  layer_close();
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    $("#atype").change(function () {
+      $("#aid").val("");
+      $("#aname").val("");
+    });
+
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 100
+    });
+  }
+
+  function setFromData(data, sign) {
+    switch (sign) {
+      case 'user':
+        $("#aid").val(data[0]);
+        $("#aname").val(data[2]);
+        break;
+      case 'item':
+        $("#itemid").val(data[0]);
+        $("#itemname").val(data[1]);
+        break;
+    }
+  }
+
+  function clearData(sign) {
+    switch (sign) {
+      case "aname":
+        $("#aid").val("");
+        $("#aname").val("");
+        break;
+      case "itemname":
+        $("#itemid").val("");
+        $("#itemname").val("");
+        break;
+    }
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{include file="template/footer" /}

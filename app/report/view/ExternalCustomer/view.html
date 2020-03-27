@@ -1,0 +1,104 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="clearfix">
+          <form class="form form-horizontal" id="form-view" method="post">
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">访问时间：</label>
+              <div class="form-controls col-xs-12 col-sm-4">
+                <input type="text" class="input-text" value="{$list.cTime}" >
+              </div>
+              <label class="form-label col-xs-12 col-sm-2">访问项目：</label>
+              <div class="form-controls col-xs-12 col-sm-4">
+                <input type="text" class="input-text" value="{$list.itemName}" >
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">访问IP：</label>
+              <div class="form-controls col-xs-12 col-sm-10">
+                <input type="text" class="input-text" value="{$list.ip}" >
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">客户端：</label>
+              <div class="form-controls col-xs-12 col-sm-4">
+                <input type="text" class="input-text" value="{$list.device}" >
+              </div>
+              <label class="form-label col-xs-12 col-sm-2">设备：</label>
+              <div class="form-controls col-xs-12 col-sm-4">
+                <input type="text" class="input-text" value="{$list.brand}" >
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">客户称呼：</label>
+              <div class="form-controls col-xs-12 col-sm-4">
+                <input type="text" class="input-text" value="{$list.name}" >
+              </div>
+              <label class="form-label col-xs-12 col-sm-2">客户电话：</label>
+              <div class="form-controls col-xs-12 col-sm-4">
+                <input type="text" class="input-text" value="{$list.phone}" >
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">备注：</label>
+              <div class="form-controls col-xs-12 col-sm-10">
+                <input type="text" class="input-text" value="{$list.note}" >
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">来源页面：</label>
+              <div class="form-controls col-xs-12 col-sm-10">
+                <textarea class="textarea"  dragonfly="true" >{$list.fromWebUrl}</textarea>
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">访问页面：</label>
+              <div class="form-controls col-xs-12 col-sm-10">
+                <textarea class="textarea"  dragonfly="true" >{$list.thisWebUrl}</textarea>
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-12 col-sm-2">客户端信息：</label>
+              <div class="form-controls col-xs-12 col-sm-10">
+                <textarea class="textarea"  dragonfly="true" >{$list.userAgent}</textarea>
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <div class="col-xs-9 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+                <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function() {
+    initBind();
+  });
+
+  function initBind() {
+    $('input,select,textarea').prop('readonly',true);
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+{include file="template/footer" /}

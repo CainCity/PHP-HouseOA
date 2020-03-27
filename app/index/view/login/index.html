@@ -1,0 +1,121 @@
+{include file="template/head_login" /}
+</body>
+
+<!-- header -->
+<header class="header">
+  <div class="container-fluid">
+    <div class="row fixed-top">
+      <div class="col">
+        <div class="logo-box">
+          <img class="logo-image" src="../static/login/image/logo.png"/>
+          <div class="os-name">{$Think.config.system.name}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<!-- /header -->
+
+<!-- main -->
+<div class="loginWraper">
+  <div id="loginform" class="loginBox">
+    <div class="loginBox">
+      <form id="form-admin-login" class="form form-horizontal" action="login" method="post">
+        <div class="row clearfix">
+          <div class="form-controls col-xs-10 col-xs-offset-1">
+            <input type="text" class="input-text size-L" id="loginuser" name="loginuser" placeholder="工号、姓名">
+          </div>
+        </div>
+        <div class="row clearfix">
+          <div class="form-controls col-xs-10 col-xs-offset-1">
+            <input type="password" class="input-text size-L" id="loginpsd" name="loginpsd" placeholder="密码">
+          </div>
+        </div>
+        <!--<div class="row clearfix">-->
+        <!--<div class="form-controls col-xs-10 col-xs-offset-1">-->
+        <!--<input id="verificationCode" name="verificationCode" class="input-text size-L" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="" style="width:150px;">-->
+        <!--<img src="images/VerifyCode.aspx.png" />-->
+        <!--<a id="kanbuq" href="javascript:;">看不清，换一张</a>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="row clearfix">
+          <div class="form-controls col-xs-10 col-xs-offset-1">
+            <input type="submit" class="btn btn-success btn-block radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /main -->
+
+<!-- footer -->
+<footer class="footer">
+  <div class="container-fluid">
+    <div class="row fixed-bottom bg-white">
+      <div class="col">
+        <div class="web-info">
+          <ul>
+            <li><a href="javascript:;">返回首页</a></li>
+            <li>|</li>
+            <li><a href="javascript:;">工作组：{$Think.config.system.team}</a></li>
+            <li>|</li>
+            <li><a href="javascript:;">邮箱：{$Think.config.system.email}</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- /footer -->
+
+<script type="text/javascript" src="../lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="../static/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/jquery.validate.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/validate-methods.js"></script>
+<script type="text/javascript" src="../lib/jquery.validation/1.14.0/messages_zh.js"></script>
+<script type="text/javascript" src="../lib/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="../static/login/js/main.js"></script>
+<link rel="stylesheet" href="../static/login/css/main.css">
+
+<script type="text/javascript">
+  // $(function(){
+  //   /* 表单验证，提交 */
+  //   $("#form-admin-login").validate({
+  //     rules: {
+  //       loginuser: {
+  //         required:true,
+  //       },
+  //       loginpsd: {
+  //         required:true,
+  //         rangelength: [6, 16]
+  //       },
+  //       verificationCode: {
+  //         //required:true,
+  //       }
+  //     },
+  //     messages: {
+  //       loginuser: {
+  //         required: "账户不能为空"
+  //       },
+  //       loginpsd: {
+  //         required: "密码不能为空",
+  //         rangelength: "密码长度6到16个字符"
+  //       },
+  //       verificationCode: {
+  //         required: "验证码不能为空"
+  //       },
+  //     },
+  //     onkeyup: false,
+  //     focusCleanup: false,
+  //     submitHandler: function(form) {
+  //       //在这里执行表单提交
+  //       $(form).ajaxSubmit();
+  //     }
+  //   });
+  // });
+</script>
+
+</body>
+
+</html>

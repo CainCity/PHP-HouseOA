@@ -1,0 +1,497 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+
+        <div id="tab-system" class="HuiTab">
+          <div class="tabBar clearfix">
+            <span>基础信息</span>
+            <span>详细信息</span>
+
+            <span>优惠政策</span>
+            <span>介绍</span>
+            <span>优势</span>
+            <span>详情</span>
+            <span>配套</span>
+            <span>交通</span>
+
+            <span>banner</span>
+            <span>效果相册</span>
+            <span>外景相册</span>
+            <span>户型相册</span>
+            <span>样板相册</span>
+          </div>
+
+          <form class="form form-horizontal" id="form-edit" method="post">
+            <input type="hidden" id="id">
+
+            <!--基础信息-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span> 项目：</label>
+                    <div class="form-controls col-xs-12 col-sm-7">
+                      <input type="text" class="input-text" id="itemname">
+                    </div>
+
+                    <div class="form-controls col-xs-12 col-sm-3">
+                      <span class="select-box">
+                        <select class="select" id="itemtype">
+                          {voList name="type1List" id="al"}
+                          <option value="{$al.id}">{$al.name}</option>
+                          {/voList}
+                        </select>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span> 地区：</label>
+                    <div class="form-controls col-xs-12 col-sm-3">
+                      <span class="select-box">
+                        <select class="select" id="provinceid">
+                          {voList name="provinceList" id="bl"}
+                          <option value="{$bl.id}">{$bl.name}</option>
+                          {/voList}
+                        </select>
+                      </span>
+                    </div>
+
+                    <div class="form-controls col-xs-12 col-sm-4">
+                      <span class="select-box">
+                        <select class="select" id="cityid">
+                          {voList name="cityList" id="cl"}
+                          <option value="{$cl.id}">{$cl.name}</option>
+                          {/voList}
+                        </select>
+                      </span>
+                    </div>
+
+                    <div class="form-controls col-xs-12 col-sm-3">
+                      <span class="select-box">
+                        <select class="select" id="districtid">
+                          {voList name="districtList" id="dl"}
+                          <option value="{$dl.id}">{$dl.name}</option>
+                          {/voList}
+                        </select>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2"> 地址：</label>
+                    <div class="form-controls col-xs-12 col-sm-10">
+                      <input type="text" class="input-text" id="address">
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2"> 开发商：</label>
+                    <div class="form-controls col-xs-12 col-sm-10">
+                      <input type="text" class="input-text" id="developer">
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2"> 描述：</label>
+                    <div class="form-controls col-xs-12 col-sm-10">
+                      <textarea class="textarea textarea-article" id="description" placeholder="100个字符以内">{$list.description}</textarea>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!--详细信息-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2">项目类型：</label>
+                    <div class="form-controls col-xs-12 col-sm-10 skin-minimal">
+                      {voList name="type3List" id="r"}
+                      <div class="radio-box">
+                        <input type="radio" id="type1-{$r.id}" name="type1" value="{$r.id}">
+                        <label for="type1-{$r.id}">{$r.name}</label>
+                      </div>
+                      {/voList}
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2">销售情况：</label>
+                    <div class="form-controls col-xs-12 col-sm-10 skin-minimal">
+                      {voList name="type4List" id="r"}
+                      <div class="radio-box">
+                        <input type="radio" id="type2-{$r.id}" name="type2" value="{$r.id}">
+                        <label for="type2-{$r.id}">{$r.name}</label>
+                      </div>
+                      {/voList}
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2">项目性质：</label>
+                    <div class="form-controls col-xs-12 col-sm-10 skin-minimal">
+                      {voList name="type1List" id="r"}
+                      <div class="check-box">
+                        <input type="checkbox" id="type3-{$r.id}" name="type3" value="{$r.id}">
+                        <label for="type3-{$r.id}">{$r.name}</label>
+                      </div>
+                      {/voList}
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2">装修标准：</label>
+                    <div class="form-controls col-xs-12 col-sm-10 skin-minimal">
+                      {voList name="type2List" id="r"}
+                      <div class="check-box">
+                        <input type="checkbox" id="type4-{$r.id}" name="type4" value="{$r.id}">
+                        <label for="type4-{$r.id}">{$r.name}</label>
+                      </div>
+                      {/voList}
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <label class="form-label col-xs-12 col-sm-2">销售均价：</label>
+                    <div class="form-controls col-xs-12 col-sm-4">
+                      <input type="text" class="input-text" id="price">
+                    </div>
+
+                    <label class="form-label col-xs-12 col-sm-2">主力面积：</label>
+                    <div class="form-controls col-xs-12 col-sm-4">
+                      <input type="text" class="input-text" id="area">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--优惠信息-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <textarea class="textarea" id="note1" placeholder="优惠信息" style="height: 300px">{$list.note1}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--介绍-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <textarea class="textarea" id="note2" placeholder="介绍" style="height: 300px">{$list.note2}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--优势-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <textarea class="textarea" id="note3" placeholder="优势" style="height: 300px">{$list.note3}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--详情-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <textarea class="textarea" id="note4" placeholder="详情" style="height: 300px">{$list.note4}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--配套-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <textarea class="textarea" id="note5" placeholder="配套" style="height: 300px">{$list.note5}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--交通-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <textarea class="textarea" id="note6" placeholder="交通" style="height: 300px">{$list.note6}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--banner-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <button type="button" class="btn btn-primary radius" onclick="openFrom('banner','ItemDetailedImageAdd?id={$list.id}&sign=0')"><i class="Hui-iconfont">&#xe642;</i> 上传</button>
+                      <button type="button" class="btn btn-danger radius" onclick="delImage(0)"><i class="Hui-iconfont">&#xe6e2;</i> 删除</button>
+                      <button type="button" class="btn btn-success radius" onclick="refImage(this, 0)"><i class="Hui-iconfont">&#xe68f;</i> 刷新</button>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <div class="portfolio-content">
+                        <ul class="clearfix Hui-admin-portfolio-area" id="imageList0">{$imageList0}</ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--效果相册-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <button type="button" class="btn btn-primary radius" onclick="openFrom('效果相册','ItemDetailedImageAdd?id={$list.id}&sign=1')"><i class="Hui-iconfont">&#xe642;</i> 上传</button>
+                      <button type="button" class="btn btn-danger radius" onclick="delImage(1)"><i class="Hui-iconfont">&#xe6e2;</i> 删除</button>
+                      <button type="button" class="btn btn-success radius" onclick="refImage(this, 1)"><i class="Hui-iconfont">&#xe68f;</i> 刷新</button>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <div class="portfolio-content">
+                        <ul class="clearfix Hui-admin-portfolio-area" id="imageList1">{$imageList1}</ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--外景相册-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <button type="button" class="btn btn-primary radius" onclick="openFrom('外景相册','ItemDetailedImageAdd?id={$list.id}&sign=2')"><i class="Hui-iconfont">&#xe642;</i> 上传</button>
+                      <button type="button" class="btn btn-danger radius" onclick="delImage(2)"><i class="Hui-iconfont">&#xe6e2;</i> 删除</button>
+                      <button type="button" class="btn btn-success radius" onclick="refImage(this, 2)"><i class="Hui-iconfont">&#xe68f;</i> 刷新</button>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <div class="portfolio-content">
+                        <ul class="clearfix Hui-admin-portfolio-area" id="imageList2">{$imageList2}</ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--户型相册-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <button type="button" class="btn btn-primary radius" onclick="openFrom('户型相册','ItemDetailedImageAdd?id={$list.id}&sign=3')"><i class="Hui-iconfont">&#xe642;</i> 上传</button>
+                      <button type="button" class="btn btn-danger radius" onclick="delImage(3)"><i class="Hui-iconfont">&#xe6e2;</i> 删除</button>
+                      <button type="button" class="btn btn-success radius" onclick="refImage(this, 3)"><i class="Hui-iconfont">&#xe68f;</i> 刷新</button>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <div class="portfolio-content">
+                        <ul class="clearfix Hui-admin-portfolio-area" id="imageList3">{$imageList3}</ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--样板相册-->
+            <div class="tabCon">
+              <div class="panel">
+                <div class="panel-body">
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <button type="button" class="btn btn-primary radius" onclick="openFrom('样板相册','ItemDetailedImageAdd?id={$list.id}&sign=4')"><i class="Hui-iconfont">&#xe642;</i> 上传</button>
+                      <button type="button" class="btn btn-danger radius" onclick="delImage(4)"><i class="Hui-iconfont">&#xe6e2;</i> 删除</button>
+                      <button type="button" class="btn btn-success radius" onclick="refImage(this, 4)"><i class="Hui-iconfont">&#xe68f;</i> 刷新</button>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="form-controls col-xs-12 col-sm-12">
+                      <div class="portfolio-content">
+                        <ul class="clearfix Hui-admin-portfolio-area" id="imageList4">{$imageList4}</ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <div class="col-xs-10 col-sm-10 col-xs-offset-2 col-sm-offset-2">
+                {if $list.html!="" }
+                <a href="../{$list.html}" class="btn btn-primary radius" target="_blank">查看</a>
+                {/if}
+                <button type="button" class="btn btn-primary radius" onclick="refStaticHtml()"><i class="Hui-iconfont">&#xe616;</i> 生成静态页面</button>
+                <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+<link type="text/css" rel="stylesheet" href="../lib/lightbox2/2.8.1/css/lightbox.css" />
+<script type="text/javascript" src="../lib/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript" src="../static/xoa/js/item.js"></script>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function(){
+    initData();
+    initBind();
+  });
+
+  function initData() {
+    $('#id').val('{$list.id}');
+    $('#itemname').val('{$list.itemname}');
+    $('#itemtype').val('{$list.itemtype}');
+    $('#provinceid').val('{$list.provinceid}');
+    $('#cityid').val('{$list.cityid}');
+    $('#districtid').val('{$list.districtid}');
+    $('#address').val('{$list.address}');
+    $('#developer').val('{$list.developer}');
+
+    $('#price').val('{$list.price}');
+    $('#area').val('{$list.area}');
+
+    setRadioValue("type1", "{$list.type1}");
+    setRadioValue("type2", "{$list.type2}");
+    setCheckboxValue("type3", "{$list.type3}");
+    setCheckboxValue("type4", "{$list.type4}");
+  }
+
+  function initBind() {
+    $("#tab-system").Huitab();
+
+    $(".Hui-admin-portfolio-area li").Huihover();
+
+    $("#form-edit").validate({
+      rules: {
+        provinceid: {required: true},
+        cityid: {required: true},
+        districtid: {required: true},
+        itemname: {required: true, minlength: 2, maxlength: 16},
+        status: {required: true},
+      },
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        layer.confirm('确认保存吗？', function (index) {
+          var aoData = new Array();
+
+          aoData.push(
+                  {"name": "id", "value": $('#id').val()},
+                  {"name": "itemname", "value": $('#itemname').val()},
+                  {"name": "itemtype", "value": $('#itemtype').val()},
+                  {"name": "provinceid", "value": $('#provinceid').val()},
+                  {"name": "cityid", "value": $('#cityid').val()},
+                  {"name": "districtid", "value": $('#districtid').val()},
+                  {"name": "address", "value": $('#address').val()},
+                  {"name": "developer", "value": $('#developer').val()},
+                  {"name": "description", "value": $('#description').val()},
+
+                  {"name": "type1", "value": getRadioValue("type1")},
+                  {"name": "type2", "value": getRadioValue("type2")},
+                  {"name": "type3", "value": getCheckboxValue("type3")},
+                  {"name": "type4", "value": getCheckboxValue("type4")},
+
+                  {"name": "note1", "value": $('#note1').val()},
+                  {"name": "note2", "value": $('#note2').val()},
+                  {"name": "note3", "value": $('#note3').val()},
+                  {"name": "note4", "value": $('#note4').val()},
+                  {"name": "note5", "value": $('#note5').val()},
+                  {"name": "note6", "value": $('#note6').val()},
+
+                  {"name": "price", "value": $('#price').val()},
+                  {"name": "area", "value": $('#area').val()}
+          );
+
+          $.ajax({
+            "type": "post",
+            "url": "ItemDetailedEdit",
+            "data": {aoData: JSON.stringify(aoData)},
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  layer.msg(result['message'], {icon: 6, time: 2000});
+                  //parent.Message(result['message']);
+                  //layer_close();
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 100
+    });
+
+    $('#provinceid').click(function() {
+      getCity(this.value);
+    })
+
+    $('#cityid').click(function() {
+      getDistrict(this.value);
+    })
+  }
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+{include file="template/footer" /}

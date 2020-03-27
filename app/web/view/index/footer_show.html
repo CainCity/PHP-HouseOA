@@ -1,0 +1,100 @@
+<!-- 底部 -->
+<footer>
+    <div class="container-fluid border-top">
+        <div class="row bg-white">
+            <div class="col-12 text-center pt-2">
+                <p>
+                    <small class="text-muted"><a href="../" class="text-muted" target="_blank">返回首页</a></small>
+                    <small class="text-muted"> | </small>
+                    <small class="text-muted">技术支持:&copy {$Think.config.system.team}</small>
+                </p>
+            </div>
+            <div class="col-12 text-left border-top">
+                <p class="mt-0 mb-0">
+                    <small class="text-faint">
+                        {$data.itemName}授权{$Think.config.company.name}推广，{$Think.config.company.name}是一家专业从事长三角地区房地产项目营销策划、项目融资、市场研究分析、代理销售的专业性企业。
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden-md hidden-lg hidden-xl">
+        <div class="pb-5"></div>
+
+        <div class="container-fluid fixed-bottom border-top">
+            <div class="row bg-white pt-2 pb-2">
+                <div class="col-6 col-sm-6">
+                    <button type="button"
+                            class="btn btn-gg btn-sm btn-block"
+                            data-toggle="modal"
+                            data-target="#consultationModal"
+                            data-whatever="团购报名|{$Think.config.company.400}"><span class="iconfont">&#xe628;</span> 团购报名
+                    </button>
+                </div>
+                <div class="col-6 col-sm-6">
+                    <a class="btn btn-gg btn-sm btn-block" href="tel:{$Think.config.company.400}" role="button"><span class="iconfont">&#xe60e;</span> 电话咨询</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden-esm hidden-sm">
+        <div class="pb-4"></div>
+        <div class="pb-4"></div>
+
+        <div class="container-fluid fixed-bottom border-top">
+            <div class="row pt-2 pb-2 align-items-center fromBotton bg-translucent">
+                <div class="col-3">
+                    <p class="text-white text-center m-0 h1">预约看房</p>
+                    <p class="text-white text-center m-0 h5">即享受优惠活动</p>
+                </div>
+                <div class="col-9">
+                    <div id="fromBotton" class="row align-items-center">
+                        <div class="col-4">
+                            <input id="nameBottom" name="info[nameBottom]" class="form-control form-control-sm" type="text" placeholder="请输入您的姓名">
+                        </div>
+                        <div class="col-4">
+                            <input id="phoneBottom" name="info[phoneBottom]" class="form-control form-control-sm" type="text" placeholder="请输入您的手机号码">
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="btn btn-gg btn-sm" onclick="doSubmitFormBottom('{$Think.config.web.api}')"><span class="iconfont">&#xe628;</span> 立即报名</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<link rel="stylesheet" href="../statics/index/js/750_footer.js">
+
+<!-- 弹出层：免费咨询 -->
+<div class="modal fade" id="consultationModal" tabindex="-1" role="dialog" aria-labelledby="consultation">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="consultation">在线报名</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-footer" id="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary " onclick="doSubmitForm('{$Think.config.web.api}')">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../statics/index/js/main.js"></script>
+
+<script>
+    $(function () {
+        log('{$Think.config.web.api}');
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+
+        <form class="form form-horizontal" id="form-add" method="post">
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span> 模糊匹配：</label>
+            <div class="form-controls col-xs-12 col-sm-4">
+              <span class="select-box">
+                <select class="select" id="islike" name="islike">
+                  <option value="1">否</option>
+                  <option value="2">是</option>
+                </select>
+              </span>
+            </div>
+
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>是否有效：</label>
+            <div class="form-controls col-xs-12 col-sm-4 skin-minimal">
+              <div class="radio-box">
+                <input type="radio" name="status" id="status-1" value="1">
+                <label for="status-1">无效</label>
+              </div>
+              <div class="radio-box">
+                <input type="radio" name="status" id="status-2" value="2" checked>
+                <label for="status-2">有效</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span> 客户池：</label>
+            <div class="form-controls col-xs-12 col-sm-4">
+              <span class="select-box">
+                <select class="select" id="atype" name="atype">
+                  <option value="0">全部客户</option>
+                  {voList name="bList" id="bl"}
+                  <option value="{$bl.id}">{$bl.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span> 原类型：</label>
+            <div class="form-controls col-xs-12 col-sm-4">
+              <span class="select-box">
+                <select class="select" id="oldid" name="oldid">
+                  {voList name="aList" id="al"}
+                  <option value="{$al.id}">{$al.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span> 新类型：</label>
+            <div class="form-controls col-xs-12 col-sm-4">
+              <span class="select-box">
+                <select class="select" id="newid" name="newid">
+                  {voList name="aList" id="al"}
+                  <option value="{$al.id}">{$al.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span> 跟进内容：</label>
+            <div class="form-controls col-xs-12 col-sm-10">
+              <textarea class="textarea textarea-article" name="description" placeholder="100个字符以内"></textarea>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <div class="col-xs-7 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+              <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+              <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function() {
+    initBind();
+  });
+
+  function initBind() {
+    $("#form-add").validate({
+      rules: {description: {required: true}},
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        //$(form).ajaxSubmit();
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "ChangeRuleAdd",
+            "data": $('#form-add').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  parent.Message(result['message']);
+                  layer_close();
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 100
+    });
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+{include file="template/footer" /}

@@ -1,0 +1,173 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <form class="form form-horizontal" id="form-edit" method="post">
+          <input type="hidden" id="id" name="id" value="{$list.id}">
+
+          <div id="tab-system" class="HuiTab">
+            <div class="tabBar cl">
+              <span>角色信息</span>
+              <span>菜单权限</span>
+              <span>特殊权限</span>
+            </div>
+
+            <div class="tabCon">
+              <div class="row clearfix">
+                <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>角色名称：</label>
+                <div class="form-controls col-xs-12 col-sm-10">
+                  <input type="text" class="input-text" id="rolename" name="rolename" value="{$list.rolename}">
+                </div>
+              </div>
+
+              <div class="row clearfix">
+                <label class="form-label col-xs-12 col-sm-2">描述：</label>
+                <div class="form-controls col-xs-12 col-sm-10">
+                  <textarea class="textarea textarea-article" name="description" placeholder="100个字符以内" >{$list.description}</textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="tabCon">
+              <div class="row clearfix">
+                <div class="form-controls col-xs-12 col-sm-12">
+                  {voList name="aList" id="r1"}
+                  <dl class="Hui-admin-permission-list">
+                    <dt>
+                      <label><input type="checkbox" name="{$r1['id']}_s" {if condition="$r1['s'] == 2"}checked="checked"{/if}>{$r1['name']}</label>
+                    </dt>
+                    <dd>
+                      {voList name="r1.data" id="r2"}
+                      <dl class="clearfix Hui-admin-permission-list2">
+                        <dt>
+                          <label><input type="checkbox" name="{$r2['id']}" {if condition="$r2['roleId'] != ''"}checked="checked"{/if}>{$r2['name']}</label>
+                        </dt>
+                        <dd>
+                          <label><input type="checkbox" name="{$r2['id']}_s" {if condition="$r2['s'] == 2"}checked="checked"{/if}>查询</label>
+                          <label><input type="checkbox" name="{$r2['id']}_a" {if condition="$r2['a'] == 2"}checked="checked"{/if}>添加</label>
+                          <label><input type="checkbox" name="{$r2['id']}_e" {if condition="$r2['e'] == 2"}checked="checked"{/if}>修改</label>
+                          <label><input type="checkbox" name="{$r2['id']}_d" {if condition="$r2['d'] == 2"}checked="checked"{/if}>删除</label>
+                        </dd>
+                      </dl>
+                      {voList name="r2.data" id="r3"}
+                      <dl class="clearfix Hui-admin-permission-list2">
+                        <dt>
+                          <label><input type="checkbox" name="{$r3['id']}" {if condition="$r3['roleId'] != ''"}checked="checked"{/if}>&nbsp;&nbsp;&nbsp;&nbsp;└{$r3['name']}</label>
+                        </dt>
+                        <dd>
+                          <label><input type="checkbox" name="{$r3['id']}_s" {if condition="$r3['s'] == 2"}checked="checked"{/if}>查询</label>
+                          <label><input type="checkbox" name="{$r3['id']}_a" {if condition="$r3['a'] == 2"}checked="checked"{/if}>添加</label>
+                          <label><input type="checkbox" name="{$r3['id']}_e" {if condition="$r3['e'] == 2"}checked="checked"{/if}>修改</label>
+                          <label><input type="checkbox" name="{$r3['id']}_d" {if condition="$r3['d'] == 2"}checked="checked"{/if}>删除</label>
+                        </dd>
+                      </dl>
+                      {/voList}
+                      {/voList}
+                    </dd>
+                  </dl>
+                  {/voList}
+                </div>
+              </div>
+            </div>
+
+            <div class="tabCon">
+              <div class="row clearfix">
+                <div class="form-controls col-xs-12 col-sm-12">
+                  {voList name="cList" id="cl"}
+                  <dl class="Hui-admin-permission-list">
+                    <dt>
+                      <label><input type="checkbox" name="{$cl['id']}" {if condition="$cl['isTrue'] == 2"}checked="checked"{/if} >{$cl['name']}&nbsp;&nbsp;</label>
+                    </dt>
+                  </dl>
+                  {/voList}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <div class="col-xs-9 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+              <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+              <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function() {
+    initBind();
+  });
+
+  function initBind() {
+    $("#tab-system").Huitab();
+
+    $(".Hui-admin-permission-list dt input:checkbox").click(function () {
+      $(this).closest("dl").find("dd input:checkbox").prop("checked", $(this).prop("checked"));
+    });
+    $(".Hui-admin-permission-list2 dd input:checkbox").click(function () {
+      var l = $(this).parent().parent().find("input:checked").length;
+      var l2 = $(this).parents(".Hui-admin-permission-list").find(".Hui-admin-permission-list2 dd").find("input:checked").length;
+      if ($(this).prop("checked")) {
+        $(this).closest("dl").find("dt input:checkbox").prop("checked", true);
+        $(this).parents(".Hui-admin-permission-list").find("dt").first().find("input:checkbox").prop("checked", true);
+      } else {
+        if (l == 0) {
+          $(this).closest("dl").find("dt input:checkbox").prop("checked", false);
+        }
+        if (l2 == 0) {
+          $(this).parents(".Hui-admin-permission-list").find("dt").first().find("input:checkbox").prop("checked", false);
+        }
+      }
+    });
+
+    $("#form-edit").validate({
+      rules: {
+        rolename: {required: true, minlength: 2, maxlength: 16},
+        status: {required: true},
+      },
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        //$(form).ajaxSubmit();
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "RoleEdit",
+            "data": $('#form-edit').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 6, time: 2000});
+                  break;
+                case 2:
+                  parent.Message(result['message']);
+                  layer_close();
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 100
+    });
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+{include file="template/footer" /}

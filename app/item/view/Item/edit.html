@@ -1,0 +1,188 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+
+          <form class="form form-horizontal" id="form-edit" method="post">
+            <input type="hidden" id="id">
+
+            <!--基础信息-->
+            <div class="row clearfix">
+              <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 项目：</label>
+              <div class="form-controls col-xs-6 col-sm-7">
+                <input type="text" class="input-text" id="itemname">
+              </div>
+
+              <div class="form-controls col-xs-3 col-sm-3">
+                <span class="select-box">
+                  <select class="select" id="itemtype">
+                    {voList name="type1List" id="al"}
+                    <option value="{$al.id}">{$al.name}</option>
+                    {/voList}
+                  </select>
+                </span>
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 地区：</label>
+              <div class="form-controls col-xs-9 col-sm-3">
+                <span class="select-box">
+                  <select class="select" id="provinceid">
+                    {voList name="provinceList" id="bl"}
+                    <option value="{$bl.id}">{$bl.name}</option>
+                    {/voList}
+                  </select>
+                </span>
+              </div>
+
+              <div class="form-controls col-xs-12 col-sm-4">
+                <span class="select-box">
+                  <select class="select" id="cityid">
+                    {voList name="cityList" id="cl"}
+                    <option value="{$cl.id}">{$cl.name}</option>
+                    {/voList}
+                  </select>
+                </span>
+              </div>
+
+              <div class="form-controls col-xs-12 col-sm-3">
+                <span class="select-box">
+                  <select class="select" id="districtid">
+                    {voList name="districtList" id="dl"}
+                    <option value="{$dl.id}">{$dl.name}</option>
+                    {/voList}
+                  </select>
+                </span>
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-3 col-sm-2"> 地址：</label>
+              <div class="form-controls col-xs-9 col-sm-10">
+                <input type="text" class="input-text" id="address">
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-3 col-sm-2"> 开发商：</label>
+              <div class="form-controls col-xs-9 col-sm-10">
+                <input type="text" class="input-text" id="developer">
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <label class="form-label col-xs-3 col-sm-2"> 描述：</label>
+              <div class="form-controls col-xs-9 col-sm-10">
+                <textarea class="textarea textarea-article" id="description" placeholder="100个字符以内" >{$list.description}</textarea>
+              </div>
+            </div>
+
+            <div class="row clearfix">
+              <div class="col-xs-9 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+                <button type="submit" class="btn btn-primary radius" ><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+              </div>
+            </div>
+          </form>
+
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+<script type="text/javascript" src="../static/xoa/js/item.js"></script>
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function(){
+    initData();
+    initBind();
+  });
+
+  function initData() {
+    $('#id').val('{$list.id}');
+    $('#itemname').val('{$list.itemname}');
+    $('#itemtype').val('{$list.itemtype}');
+    $('#provinceid').val('{$list.provinceid}');
+    $('#cityid').val('{$list.cityid}');
+    $('#districtid').val('{$list.districtid}');
+    $('#address').val('{$list.address}');
+    $('#developer').val('{$list.developer}');
+  }
+
+  function initBind() {
+    $("#tab-system").Huitab();
+
+    $(".Hui-admin-portfolio-area li").Huihover();
+
+    $("#form-edit").validate({
+      rules: {
+        provinceid: {required: true},
+        cityid: {required: true},
+        districtid: {required: true},
+        itemname: {required: true, minlength: 2, maxlength: 16},
+        status: {required: true},
+      },
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        layer.confirm('确认保存吗？', function (index) {
+          var aoData = new Array();
+
+          aoData.push(
+                  {"name": "id", "value": $('#id').val()},
+                  {"name": "itemname", "value": $('#itemname').val()},
+                  {"name": "itemtype", "value": $('#itemtype').val()},
+                  {"name": "provinceid", "value": $('#provinceid').val()},
+                  {"name": "cityid", "value": $('#cityid').val()},
+                  {"name": "districtid", "value": $('#districtid').val()},
+                  {"name": "address", "value": $('#address').val()},
+                  {"name": "developer", "value": $('#developer').val()},
+                  {"name": "description", "value": $('#description').val()}
+          );
+
+          $.ajax({
+            "type": "post",
+            "url": "ItemEdit",
+            "data": {aoData: JSON.stringify(aoData)},
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  parent.Message(result['message']);
+                  layer_close();
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 100
+    });
+
+    $('#provinceid').click(function() {
+      getCity(this.value);
+    })
+
+    $('#cityid').click(function() {
+      getDistrict(this.value);
+    })
+  }
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+
+{include file="template/footer" /}

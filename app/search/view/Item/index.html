@@ -1,0 +1,98 @@
+{include file="template/head" /}
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select class="select" id="sStatus">
+                    <option value="0">全部状态</option>
+                    <option value="1">已停用</option>
+                    <option value="2">已启用</option>
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select class="select" id="itemType">
+                    <option value="0">全部类型</option>
+                    {voList name="aList" id="al"}
+                    <option value="{$al.id}">{$al.name}</option>
+                    {/voList}
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="sName" placeholder="输入项目">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <button type="button" class="btn btn-success radius" onclick="RefreshTable()"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+                <button type="button" class="btn btn-primary radius" onclick="getTableContent('item')"><i class="Hui-iconfont">&#xe6a7;</i> 选择</button>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="clearfix">
+          <table class="table table-border table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+              <th width="250">唯一码</th>
+              <th width="200">项目</th>
+              <th width="500">地址</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/indexjs" /}
+<script type="text/javascript" src="../lib/jquery.contextmenu/jquery.contextmenu.r2.js"></script>
+<script type="text/javascript" src="../static/h-ui.admin.pro.iframe/js/h-ui.admin.pro.iframe.min.js"></script>
+<script type="text/javascript" src="../lib/datatables/1.10.15/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../lib/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="../static/business/js/main.js"></script>
+<script type="text/javascript" src="../static/xoa/js/tool.js"></script>
+
+<script type="text/javascript">
+  var myDataTable;
+
+  $(function(){
+    initDataTable('.table-sort', 'Item');
+  });
+
+  function retrieveData( sSource, aoData, fnCallback ) {
+    aoData.push(
+      {"name": "status", "value": $('#sStatus').val()},
+      {"name": "itemType", "value": $('#itemType').val()},
+      {"name": "sName", "value": $('#sName').val()}
+    );
+
+    postData(sSource, aoData, fnCallback);
+  }
+</script>
+{include file="template/footer" /}

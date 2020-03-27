@@ -1,0 +1,130 @@
+.coupon {
+    border: 1px dashed #ffffff;
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+}
+
+.coupon:focus {
+    outline: none;
+}
+
+.coupon:hover img {
+    transform: scale(1.2);
+}
+
+.coupon .content {
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+}
+
+.coupon .content img {
+    height: 32px;
+    width: 32px;
+    transition: all 0.5s ease;
+}
+
+.coupon .content .n {
+    padding: 10px 0 10px 10px;
+}
+
+.coupon .content .n marquee p {
+    margin-bottom: 5px;
+    font-size: 0.68rem;
+}
+
+.coupon .content p {
+    font-size: 0.68rem;
+    line-height: 18px;
+    color: #faf7f5;
+}
+.coupon .content .title {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.coupon .l {
+    text-align: center;
+    padding: 5px 0 5px 8px;
+    font-size: 10px;
+    width: 40px;
+    color: #faf7f5;
+    border-left: 1px dashed #ffffff;
+}
+
+.coupon-l {
+    border-radius:30px 0;
+}
+
+.coupon-r {
+    border-radius:0 30px;
+}
+
+.coupon-a {
+    border-radius:30px;
+}
+
+.coupon-bg-orange {
+    background: #fd665c;
+}
+
+.coupon-bg-green {
+    background: rgba(95, 185, 233, 0.9);
+}
+
+.coupon-bg-blue {
+    background: #81d8d0;
+}
+
+.coupon-bg-black {
+    background: #000000;
+}
+
+.coupon-bg-aa {
+    background-image: linear-gradient(160deg, #ffce00 20%,#ff8b00 80%);
+}
+
+.coupon-bg-bb {
+    color: rgba(95, 185, 233, 0.9);
+    -webkit-animation: bb 10s infinite linear;
+}
+@keyframes bb {
+    from {
+        background-color: rgba(95, 185, 233, 0.9);
+        -webkit-box-shadow:0 0 0px rgba(0,0,0,0.4);
+    }
+    50% {
+        background-color: rgba(95, 185, 233, 0.9);
+        -webkit-box-shadow: 10px 10px 10px rgba(0,0,0,0.4);
+    }
+    to {
+        background-color: rgba(95, 185, 233, 0.9);
+        -webkit-box-shadow:0 0 0px rgba(0,0,0,0.4);
+    }
+}
+
+.coupon-bg-cc {
+    background-image: linear-gradient(160deg, #ffce00 20%,#ff8b00 80%);
+    -webkit-animation: cc 5s infinite linear;
+}
+@keyframes cc {
+    from {
+        -webkit-box-shadow:0 0 5px #ccc;
+    }
+    50% {
+        -webkit-box-shadow: 10px 10px 10px #ccc;
+    }
+    to {
+        -webkit-box-shadow:0 0 5px #ccc;
+    }
+}
+
+.coupon-bg-dd {
+    background:linear-gradient(45deg, #7A88FF, #7AFFAF);
+}

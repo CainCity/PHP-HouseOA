@@ -1,0 +1,283 @@
+{include file="web@index/header_show" /}
+
+{if 1 == 1}
+<!-- 简介 -->
+<section id="banner">
+    <div class="container-fluid bg-white">
+        <div class="row align-items-center pt-2 pb-2">
+            <!-- 封面 -->
+            <div class="col-12 col-sm-12 col-md-8 text-center">
+                <div class="pt-2 pb-2 img-change">
+                    {if count($data.images0)!=0}
+                    <img src="{$Think.config.web.html_image_path}{$data.images0[0]['url']}" class="img-fluid shadow-2 img-thumbnail img-max-height"/>
+                    {/if}
+                </div>
+            </div>
+            <!-- 简介 -->
+            <div class="col-12 col-sm-12 col-md-4 ">
+                <div class="profile">
+                    <div class="box1">
+                        <span>{$data.typeName2}</span>
+                        <span>{$data.typeName1}</span>
+                    </div>
+                    {if trim($data.itemName)!=""}
+                    <div class="box2">
+                        {$data.itemName}
+                    </div>
+                    {/if}
+                    {if trim($data.price)!=""}
+                    <div class="box3">
+                        {$data.price}
+                    </div>
+                    {/if}
+                    {if count($data.typeName)!=0 || count($data.typeName3)!=0}
+                    <div class="box4">
+                        {voList name="$data.typeName" id="r"}
+                        <span>{$r}</span>
+                        {/voList}
+                        {voList name="$data.typeName3" id="r"}
+                        <span>{$r}</span>
+                        {/voList}
+                    </div>
+                    {/if}
+
+                    {if trim($data.area)!="" && trim($data.area)!="㎡"}
+                    <div class="box4">
+                        <p>主力面积：{$data.area}</p>
+                    </div>
+                    {/if}
+
+                    {if trim($data.address)!=""}
+                    <div class="box4">
+                        {if trim($data.cityName)!=trim($data.districtName)}
+                        <p>项目区域：{$data.cityName}-{$data.districtName}</p>
+                        {else}
+                        <p>项目区域：{$data.cityName}</p>
+                        {/if}
+                    </div>
+                    {/if}
+
+                    {if trim($data.address)!=""}
+                    <div class="box4">
+                        <p>项目地址：{$data.address}</p>
+                    </div>
+                    {/if}
+
+                    <div class="box5">
+                        <a class="a-none" href="tel:{$Think.config.company.400}">
+                            <div class="icon">
+                                <span class="iconfont">&#xe60e;</span>
+                            </div>
+                            <div class="note">
+                                <p class="phone">{$Think.config.company.400}</p>
+                                <p>安全通话隐藏真实号码，24小时为您服务</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="pb-3"></div>
+{/if}
+
+<section>
+    <div class="container-fluid bg-white">
+        <div class="row pt-3 align-items-center">
+            {if count($data.note1)!=0}
+            <div class="col-sm-12 col-md-4">
+                <!-- 优惠政策 -->
+                {include file="web@index/mybutton_yhzc" /}
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <!-- 团购报名 -->
+                {include file="web@index/mybutton_yykf" /}
+            </div>
+            {/if}
+            <div class="col-sm-12 col-md-4">
+                <!-- 预约算价 -->
+                {include file="web@index/mybutton" title="预约算价" note="综合了解具体房价和当前贷款政策。" image="icon_2.png" /}
+            </div>
+        </div>
+    </div>
+</section>
+<div class="pb-3"></div>
+
+<!-- 内容 -->
+<section>
+    <div class="container-fluid">
+        <div class="row justify-content-between">
+            <div class="col-md-8 col-sm-12 order-9 order-md-1 ">
+                {if count($data.note2)!=0 || count($data.note3)!=0 || count($data.note5)!=0 || count($data.note6)!=0}
+                <div class="row pl-3 pr-3 pb-3">
+                    <div class="col p-0 m-0 bg-white shadow-1">
+                        <div class="info bg-white">
+                            <div class="title"><p>项目买点</p></div>
+                            {if count($data.note2)!=0}
+                            <div class="list">
+                                <div class="t">项目简介</div>
+                                <div class="c">
+                                    {voList name="data.note2" id="r"}
+                                    <p>{$r}</p>
+                                    {/voList}
+                                </div>
+                            </div>
+                            {/if}
+
+                            {if count($data.note3)!=0}
+                            <div class="list">
+                                <div class="t">项目优势</div>
+                                <div class="c">
+                                    {voList name="data.note3" id="r"}
+                                    <p>{$r}</p>
+                                    {/voList}
+                                </div>
+                            </div>
+                            {/if}
+
+                            {if count($data.note5)!=0}
+                            <div class="list">
+                                <div class="t">周边配套</div>
+                                <div class="c">
+                                    {voList name="data.note5" id="r"}
+                                    <p>{$r}</p>
+                                    {/voList}
+                                </div>
+                            </div>
+                            {/if}
+
+                            {if count($data.note6)!=0}
+                            <div class="list">
+                                <div class="t">交通状况</div>
+                                <div class="c">
+                                    {voList name="data.note6" id="r"}
+                                    <p>{$r}</p>
+                                    {/voList}
+                                </div>
+                            </div>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+                {/if}
+
+                {if count($data.note4)!=0}
+                <!-- 项目详情 -->
+                <div class="row pl-3 pr-3 pb-3">
+                    <div class="col p-0 m-0 bg-white shadow-1">
+                        <div class="info">
+                            <div class="title"><p>项目详情</p></div>
+                        </div>
+
+                        <div class="row pl-3">
+                            {voList name="data.note4" id="r"}
+                            <div class="col-4 col-md-2">
+                                <p class="h9">{$r[0]}</p>
+                            </div>
+                            {if count($r)>1}
+                            <div class="col-8 col-md-4">
+                                <p class="h9 text-muted">{$r[1]}</p>
+                            </div>
+                            {else}
+                            <div class="col-8 col-md-4">
+                                <p class="h9 text-muted"></p>
+                            </div>
+                            {/if}
+                            {/voList}
+                        </div>
+                    </div>
+                </div>
+                {/if}
+
+                {if count($data.images1)!=0}
+                <!-- 项目相册 -->
+                <div class="row pl-3 pr-3 pb-3">
+                    <div class="col p-0 m-0 bg-white shadow-1">
+                        <div class="info">
+                            <div class="title"><p>项目相册</p></div>
+                        </div>
+
+                        <div class="row pl-3 pr-3 align-items-end">
+                            {voList name="data.images1" id="r"}
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 pb-3">
+                                <div class="shadow-2">
+                                    <img class="card-img-top rounded img-size" src="{$Think.config.web.html_image_path}{$r['url']}" alt="{$r['alt']}">
+                                </div>
+                            </div>
+                            {/voList}
+                        </div>
+                    </div>
+                </div>
+                {/if}
+
+                {if count($data.images4)!=0}
+                <!-- 室内相册 -->
+                <div class="row pl-3 pr-3 pb-3">
+                    <div class="col p-0 m-0 bg-white shadow-1">
+                        <div class="info">
+                            <div class="title"><p>室内相册</p></div>
+                        </div>
+
+                        <div class="row pl-3 pr-3 align-items-end">
+                            {voList name="data.images4" id="r"}
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 pb-3">
+                                <div class="shadow-2">
+                                    <img class="card-img-top rounded img-size" src="{$Think.config.web.html_image_path}{$r['url']}" alt="{$r['alt']}">
+                                </div>
+                            </div>
+                            {/voList}
+                        </div>
+                    </div>
+                </div>
+                {/if}
+
+                {if count($data.images3)!=0}
+                <!-- 户型相册 -->
+                <div class="row pl-3 pr-3 pb-3">
+                    <div class="col p-0 m-0 bg-white shadow-1">
+                        <div class="info">
+                            <div class="title"><p>户型相册</p></div>
+                        </div>
+
+                        <div class="row pl-3 pr-3 align-items-end">
+                            {voList name="data.images3" id="r"}
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-4 pb-3">
+                                <div class="img-group shadow-2">
+                                    <img class="card-img-top img-size" src="{$Think.config.web.html_image_path}{$r['url']}" alt="{$r['alt']}">
+                                    <div class="img-tip">
+                                        <p>{$r['alt']}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            {/voList}
+                        </div>
+                    </div>
+                </div>
+                {/if}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <div class="container-fluid bg-white">
+        <div class="row pt-3 align-items-center">
+            <div class="col-sm-12 col-md-4">
+                <!-- 索取资料 -->
+                {include file="web@index/mybutton" title="索取资料" note="立即将楼盘资料发送至手机！~" image="icon_5.png" /}
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <!-- 专车服务 -->
+                {include file="web@index/mybutton" title="专车服务" note="专车接送，预约看房。" image="icon_8.png" /}
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <!-- 报销路费 -->
+                {include file="web@index/mybutton" title="报销路费" note="限时报销路费，必须提前申请哦！~" image="icon_7.png" /}
+            </div>
+        </div>
+    </div>
+</section>
+<div class="pb-3"></div>
+
+{include file="web@index/footer_show" /}

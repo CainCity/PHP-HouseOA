@@ -1,0 +1,127 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <form class="form form-horizontal" id="form-edit" action="edit" method="post">
+          <input type="hidden" value="{$list.id}" id="id" name="id">
+
+          <div class="row cl">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>省：</label>
+            <div class="formControls col-xs-12 col-sm-4">
+              <span class="select-box">
+                <select class="select" id="province" onchange="getCity(this.value);" >
+                  {voList name="aList" id="l"}
+                  <option value="{$l.id}">{$l.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>地州市：</label>
+            <div class="formControls col-xs-12 col-sm-4">
+              <span class="select-box">
+                <select class="select" id="city" name="pid">
+                  {voList name="bList" id="l"}
+                  <option value="{$l.id}">{$l.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="row cl">
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>编码：</label>
+            <div class="formControls col-xs-12 col-sm-4">
+              <input type="text" class="input-text" id="code" name="code" value="{$list.code}">
+            </div>
+
+            <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>名称：</label>
+            <div class="formControls col-xs-12 col-sm-4">
+              <input type="text" class="input-text" id="name" name="name" value="{$list.name}">
+            </div>
+          </div>
+
+          <div class="row cl">
+            <label class="form-label col-xs-12 col-sm-2">描述：</label>
+            <div class="formControls col-xs-12 col-sm-10">
+              <textarea class="textarea textarea-article" name="description" placeholder="100个字符以内">{$list.description}</textarea>
+            </div>
+          </div>
+
+          <div class="row cl">
+            <div class="col-xs-9 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+              <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+              <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </article>
+</div>
+
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function(){
+    initData();
+    initBind();
+  });
+
+  function initData() {
+    $('#province').val("{$list.province}");
+    $('#city').val("{$list.pid}");
+  }
+  
+  function initBind() {
+    $("#form-edit").validate({
+      rules: {
+        province: {required: true},
+        city: {required: true},
+        code: {required: true},
+        name: {required: true, minlength: 2, maxlength: 16},
+      },
+      onkeyup:false,
+      focusCleanup:true,
+      success:"valid",
+      submitHandler:function(form){
+        //$(form).ajaxSubmit();
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "DistrictEdit",
+            "data": $('#form-edit').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  parent.Message(result['message']);
+                  layer_close();
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 100
+    });
+  }
+
+  function getCity(d){
+    _getData({id: d}, 'getCity', "#city", "全部地州市");
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{include file="template/footer" /}

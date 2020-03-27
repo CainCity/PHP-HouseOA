@@ -1,0 +1,2 @@
+CREATE SCHEMA `house_oa` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
+CREATE SCHEMA `house_oa_warehouse` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;

@@ -1,0 +1,155 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <form class="form form-horizontal" id="form-add" method="post">
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 项目：</label>
+
+            <div class="form-controls col-xs-6 col-sm-7">
+              <input type="text" class="input-text" id="itemname" name="itemname">
+            </div>
+
+            <div class="form-controls col-xs-3 col-sm-3">
+              <span class="select-box">
+                <select name="itemtype" class="select">
+                  {voList name="aList" id="al"}
+                  <option value="{$al.id}">{$al.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-3 col-sm-2"><span class="c-red">*</span> 地区：</label>
+            <div class="form-controls col-xs-9 col-sm-3">
+              <span class="select-box">
+                <select class="select" id="provinceid" name="provinceid">
+                  {voList name="provinceList" id="bl"}
+                  <option value="{$bl.id}">{$bl.name}</option>
+                  {/voList}
+                </select>
+              </span>
+            </div>
+
+            <div class="form-controls col-xs-12 col-sm-4">
+              <span class="select-box">
+                <select class="select" id="cityid" name="cityid">
+                </select>
+              </span>
+            </div>
+
+            <div class="form-controls col-xs-12 col-sm-3">
+              <span class="select-box">
+                <select class="select" id="districtid" name="districtid">
+                </select>
+              </span>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-3 col-sm-2"> 地址：</label>
+
+            <div class="form-controls col-xs-9 col-sm-10">
+              <input type="text" class="input-text" id="address" name="address">
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-3 col-sm-2"> 开发商：</label>
+
+            <div class="form-controls col-xs-9 col-sm-10">
+              <input type="text" class="input-text" id="developer" name="developer">
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <label class="form-label col-xs-3 col-sm-2"> 描述：</label>
+            <div class="form-controls col-xs-9 col-sm-10">
+              <textarea class="textarea textarea-article" name="description" placeholder="100个字符以内" ></textarea>
+            </div>
+          </div>
+
+          <div class="row clearfix">
+            <div class="col-xs-9 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+              <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+              <button type="button" class="btn btn-default radius" onClick="layer_close();">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+<script type="text/javascript" src="../static/xoa/js/item.js"></script>
+
+<!--请在下方写此页面业务相关的脚本-->
+
+<script type="text/javascript">
+  $(function(){
+    initData();
+    initBind();
+  });
+  function initData() {
+    getCity($('#provinceid').val());
+  }
+
+  function initBind() {
+    $("#form-add").validate({
+      rules: {
+        pcode: {required: true},
+        citycode: {required: true},
+        districtid: {required: true},
+        itemname: {required: true, minlength: 2, maxlength: 16},
+        status: {required: true},
+      },
+      onkeyup:false,
+      focusCleanup:true,
+      success:"valid",
+      submitHandler:function(form){
+        //$(form).ajaxSubmit();
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "ItemAdd",
+            "data": $('#form-add').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  parent.Message(result['message']);
+                  layer_close();
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 100
+    });
+
+    $('#provinceid').click(function() {
+      getCity(this.value);
+    })
+
+    $('#cityid').click(function() {
+      getDistrict(this.value);
+    })
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{include file="template/footer" /}

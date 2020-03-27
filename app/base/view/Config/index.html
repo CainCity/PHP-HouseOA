@@ -1,0 +1,479 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+ <article class="Hui-admin-content clearfix">
+   <div class="panel">
+     <div class="panel-body">
+
+       <div id="tab-system" class="HuiTab">
+         <div class="tabBar cl">
+           <span>公司信息</span>
+           <span>系统信息</span>
+           <span>站点信息</span>
+           <span>邮件服务</span>
+         </div>
+
+         <!--公司信息-->
+         <div class="tabCon">
+           <form class="form form-horizontal" id="form-company-edit" method="post">
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">名称</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="company_name" name="company_name">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">简称</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="company_abbreviation" name="company_abbreviation">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">地址</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="company_address" name="company_address">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">联系人</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="company_contacts" name="company_contacts">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">联系电话</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="company_number" name="company_number">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">QQ</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="company_qq" name="company_qq">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">微信</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="company_wechat" name="company_wechat">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">邮箱</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="company_email" name="company_email">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">400电话</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="company_400" name="company_400">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">简介</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <textarea class="textarea textarea-article" id="company_profile" name="company_profile"></textarea>
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <div class="col-xs-7 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+                 <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i>&nbsp;&nbsp;保存</button>
+                 <button type="button" class="btn btn-default radius" onClick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+               </div>
+             </div>
+           </form>
+         </div>
+
+         <!--系统信息-->
+         <div class="tabCon">
+           <form class="form form-horizontal" id="form-system-edit" method="post">
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">静态网站名称</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="system_web_name" name="system_web_name">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">系统名称[全称]</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="system_name" name="system_name">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">系统名称[缩写]</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="system_abbreviation" name="system_abbreviation">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">备案号</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="system_icp" name="system_icp">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">开发团队</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="system_team" name="system_team">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">管理员邮箱</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="system_email" name="system_email">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <div class="col-xs-7 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+                 <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i>&nbsp;&nbsp;保存</button>
+                 <button type="button" class="btn btn-default radius" onClick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+               </div>
+             </div>
+           </form>
+         </div>
+
+         <!--站点信息-->
+         <div class="tabCon">
+           <form class="form form-horizontal" id="form-web-edit" method="post">
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">静态网站地址</label>
+               <div class="form-controls col-xs-12 col-sm-8">
+                 <input type="text" class="input-text" id="web_website" name="web_website">
+               </div>
+               <div class="form-controls col-xs-12 col-sm-2">
+                 <button type="button" class="btn btn-success radius" id="btn_web_website">前往</button>
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">静态网站数据交互API</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="web_api" name="web_api">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">根目录</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="web_root_path" name="web_root_path">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">public目录</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="web_public_path" name="web_public_path">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">静态网站样式目录</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="web_html_style_path" name="web_html_style_path">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">静态网站图片目录</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="web_html_image_path" name="web_html_image_path">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">静态网站目录</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="web_html_path" name="web_html_path">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">静态网站文件后缀</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="web_html_file_suffix" name="web_html_file_suffix">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <div class="col-xs-7 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+                 <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i>&nbsp;&nbsp;保存</button>
+                 <button type="button" class="btn btn-default radius" onClick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+               </div>
+             </div>
+           </form>
+         </div>
+
+         <!--邮件服务-->
+         <div class="tabCon">
+           <form class="form form-horizontal" id="form-email-edit" method="post">
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">服务地址</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="email_server" name="email_server">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">端口</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="email_port" name="email_port">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">用户名</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="text" class="input-text" id="email_user" name="email_user">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">密码</label>
+               <div class="form-controls col-xs-12 col-sm-10">
+                 <input type="password" class="input-text" id="email_password" name="email_password">
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <label class="form-label col-xs-12 col-sm-2">测试邮箱</label>
+               <div class="form-controls col-xs-12 col-sm-8">
+                 <input type="text" class="input-text" id="email_test" name="email_test">
+               </div>
+               <div class="form-controls col-xs-12 col-sm-2">
+                 <button type="button" class="btn btn-success radius" id="btn_test_sendmail">发送测试邮件</button>
+               </div>
+             </div>
+
+             <div class="row clearfix">
+               <div class="col-xs-7 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+                 <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i>&nbsp;&nbsp;保存</button>
+                 <button type="button" class="btn btn-default radius" onClick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+               </div>
+             </div>
+           </form>
+         </div>
+
+       </div>
+     </div>
+   </div>
+ </article>
+</div>
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  let myDataTable;
+
+  $(function() {
+    initData();
+    initBind();
+  });
+
+  function initData() {
+    $('#email_server').val("{$emailData.server}");
+    $('#email_port').val("{$emailData.port}");
+    $('#email_user').val("{$emailData.user}");
+    $('#email_password').val("{$emailData.password}");
+    $('#email_test').val("{$emailData.test}");
+
+    $('#system_web_name').val("{$systemData.web_name}");
+    $('#system_name').val("{$systemData.name}");
+    $('#system_abbreviation').val("{$systemData.abbreviation}");
+    $('#system_icp').val("{$systemData.icp}");
+    $('#system_team').val("{$systemData.team}");
+    $('#system_email').val("{$systemData.email}");
+
+    $('#web_website').val("{$webData.website}");
+    $('#web_api').val("{$webData.api}");
+    $('#web_root_path').val("{$webData.root_path}");
+    $('#web_public_path').val("{$webData.public_path}");
+    $('#web_html_path').val("{$webData.html_path}");
+    $('#web_html_style_path').val("{$webData.html_style_path}");
+    $('#web_html_image_path').val("{$webData.html_image_path}");
+    $('#web_html_file_suffix').val("{$webData.html_file_suffix}");
+
+    $('#company_name').val("{$companyData.name}");
+    $('#company_abbreviation').val("{$companyData.abbreviation}");
+    $('#company_address').val("{$companyData.address}");
+    $('#company_profile').html("{$companyData.profile}");
+    $('#company_contacts').val("{$companyData.contacts}");
+    $('#company_number').val("{$companyData.number}");
+    $('#company_qq').val("{$companyData.qq}");
+    $('#company_wechat').val("{$companyData.wechat}");
+    $('#company_email').val("{$companyData.email}");
+    $('#company_400').val("{$companyData.400}");
+  }
+
+  function initBind() {
+    runDatetimePicker(); // 实例化日期控件
+
+    $("#tab-system").Huitab();
+
+    $("#form-company-edit").validate({
+      rules: {},
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "ConfigEdit",
+            "data": $('#form-company-edit').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  layer.msg(result['message'], {icon: 6, time: 2000});
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+    $("#form-system-edit").validate({
+      rules: {},
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "ConfigEdit",
+            "data": $('#form-system-edit').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  layer.msg(result['message'], {icon: 6, time: 2000});
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+    $("#form-web-edit").validate({
+      rules: {},
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "ConfigEdit",
+            "data": $('#form-web-edit').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  layer.msg(result['message'], {icon: 6, time: 2000});
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+    $("#form-email-edit").validate({
+      rules: {},
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "ConfigEdit",
+            "data": $('#form-email-edit').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  layer.msg(result['message'], {icon: 6, time: 2000});
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    // 文章摘要
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 1000
+    });
+
+    $('#btn_test_sendmail').click(function(){
+      f('sendmailText');
+    });
+
+    $('#btn_web_website').click(function(){
+      go();
+    });
+  }
+
+  function go() {
+    let url = $('#web_website').val();
+    window.open(url);
+  }
+
+  function f(url) {
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: "",
+      dataType: 'json',
+      success: function (result) {
+        switch (result['code']) {
+          case 1:
+            layer.msg(result['message'], {icon: 5, time: 2000});
+            break;
+          case 2:
+            layer.msg(result['message'], {icon: 6, time: 2000});
+            break;
+        }
+      }
+    });
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{include file="template/footer" /}

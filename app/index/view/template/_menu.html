@@ -1,0 +1,44 @@
+<aside class="Hui-admin-aside-wrapper">
+    <div class="Hui-admin-logo-wrapper">
+        <a class="logo navbar-logo" href="../index/index">
+            <i class="va-m iconpic global-logo"></i>
+            <span class="va-m">{$Think.config.system.abbreviation}</span>
+        </a>
+    </div>
+    <div class="Hui-admin-menu-dropdown bk_2">
+        {voList name="list" id="r1"}
+        <dl class="Hui-menu">
+            <dt class="Hui-menu-title"><i class="Hui-iconfont">{$r1.icon}</i> {$r1.name}<i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i></dt>
+            <dd class="Hui-menu-item">
+                <ul>
+                    <li>
+                        {if $r1.data == ""}
+                        <a data-href="../{$r1.url}" data-title="{$r1.name}" href="javascript:void(0)">{$r1.name}</a>
+                        {else}
+                        {voList name="r1.data" id="r2"}
+                        <li>
+                            {if $r2.data == ""}
+                            <a data-href="../{$r2.url}" data-title="{$r2.name}" href="javascript:void(0)">{$r2.name}</a>
+                            {else}
+                            <dl class="Hui-menu">
+                                <dt class="Hui-menu-title">{$r2.name}<i class="Hui-iconfont Hui-admin-menu-dropdown-arrow">&#xe6d5;</i></dt>
+                                <dd class="Hui-menu-item">
+                                    <ul>
+                                        {voList name="r2.data" id="r3"}
+                                        <li><a data-href="../{$r3.url}" data-title="{$r3.name}" href="javascript:void(0)">{$r3.name}</a></li>
+                                        {/voList}
+                                    </ul>
+                                </dd>
+                            </dl>
+                            {/if}
+                        </li>
+                        {/voList}
+                    </li>
+                    {/if}
+                </ul>
+            </dd>
+        </dl>
+        {/voList}
+    </div>
+</aside>
+<div class="Hui-admin-aside-mask"></div>

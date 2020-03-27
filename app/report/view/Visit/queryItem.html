@@ -1,0 +1,98 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <span class="select-box">
+              <select class="select">
+                <option value="cTime">访问日期</option>
+              </select>
+            </span>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text datetimepicker-input" id="search-datetime-start" placeholder="开始日期" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <input type="text" class="input-text datetimepicker-input" id="search-datetime-end" placeholder="截止日期" >
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+            <button class="btn btn-success radius" onclick="getItem()"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-20">
+      <div class="panel-body">
+        <div class="row clearfix">
+          <div class="col-xs-12 col-sm-6 mb-10">
+            <textarea class="textarea" id="info" dragonfly="true" style="height: 300px"
+                      placeholder="格式：电话+空格+IP(多个时必须换行)&#10;例如：&#10;139 6863 7132 112.17.239.164&#10;15325050962 36.23.70.62&#10;"></textarea>
+          </div>
+
+          <div class="col-xs-12 col-sm-6 mb-10">
+            <textarea class="textarea" id="newInfo" dragonfly="true" style="height: 300px"
+                      placeholder="显示结果"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  $(function(){
+    initData();
+    initBind();
+  });
+
+  function initData() {
+    var myDate = new Date();
+    $('#search-datetime-start').val(myDate.Format("yyyy-MM-dd"));
+    $('#search-datetime-end').val(myDate.Format("yyyy-MM-dd"));
+  }
+  function initBind() {
+    runDatetimePicker(); // 实例化日期控件
+    $('#newInfo').prop('readonly',true);
+  }
+
+  function getItem() {
+    var url = "VisitQueryItem";
+    var aoData = new Array();
+    aoData.push(
+            {"name": "dateMin", "value": $('#search-datetime-start').val()},
+            {"name": "dateMax", "value": $('#search-datetime-end').val()},
+            {"name": "info", "value": $('#info').val()}
+    );
+
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: {aoData: JSON.stringify(aoData)}, // 以json格式传递
+      dataType: 'json',
+      success: function (result) {
+        switch (result['code']) {
+          case 1:
+            layer.msg(result['message'], {icon: 5, time: 2000});
+            break;
+          case 2:
+            layer.msg('查询成功', {icon: 6, time: 2000});
+            $('#newInfo').val(result['message']);
+            break;
+        }
+      }
+    });
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{include file="template/footer" /}

@@ -1,0 +1,80 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select id="sTypeId" class="select">
+                    {voList name="aList" id="al"}
+                    <option value="{$al.id}">{$al.name}</option>
+                    {/voList}
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <button type="button" class="btn btn-success radius" onclick="RefreshTable(true)"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-20">
+      <div class="panel-body">
+        <div class="clearfix">
+          <table class="table table-border table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+              <th width="100">分类</th>
+              <th width="40">ICON</th>
+              <th width="100">名称</th>
+              <th width="500">备注</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/indexjs" /}
+<link rel="stylesheet" href="../lib/Hui-iconfont/1.0.7/iconfont.css">
+
+<script type="text/javascript">
+  var myDataTable;
+
+  $(function(){
+    initBind();
+  });
+
+  function initBind() {
+    var o = new Array();
+    o['aoColumnDefs'] = null;
+    initDataTable('.table-sort', "{:url('Icon')}", o);
+  }
+
+  function retrieveData( sSource, aoData, fnCallback ) {
+    aoData.push(
+            {"name": "TypeId", "value": $('#sTypeId').val()}
+    );
+
+    postData(sSource, aoData, fnCallback);
+  }
+</script>
+{include file="template/footer" /}

@@ -1,0 +1,333 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+
+        <div id="tab-system" class="HuiTab">
+          <div class="tabBar cl">
+            <span>跟进信息</span>
+            <span>客户信息</span>
+            <span>其它信息</span>
+          </div>
+
+          <div class="tabCon">
+            <div class="panel">
+              <div class="panel-body">
+                <div class="row clearfix">
+                  <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+                    <span class="select-box">
+                      <select class="select" id="saType">
+                        <option value="">全部类型</option>
+                        {voList name="cList" id="cl"}
+                        <option value="{$cl.id}">{$cl.name}</option>
+                        {/voList}
+                      </select>
+                    </span>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+                    <input type="text" class="input-text datetimepicker-input" id="search-datetime-start" placeholder="开始日期">
+                  </div>
+
+                  <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+                    <input type="text" class="input-text datetimepicker-input" id="search-datetime-end" placeholder="截止日期">
+                  </div>
+
+                  <div class="col-xs-12 col-sm-3 col-md-2 mb-10">
+                    <button type="button" class="btn btn-success radius" onclick="RefreshTable(true)"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+                  </div>
+                </div>
+
+                <div class="clearfix">
+                  <table class="table table-border table-bg table-sort">
+                    <thead>
+                    <tr class="text-c">
+                      <th width="100">唯一码</th>
+                      <th width="50">类型</th>
+                      <th width="660">跟进内容</th>
+                      <th width="40">跟进人</th>
+                      <th width="120">跟进时间</th>
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tabCon">
+            <form class="form form-horizontal" id="form-edit" method="post">
+              <input type="hidden" id="id" name="id" value="{$list.id}">
+
+              <div class="row clearfix">
+                <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>来源：</label>
+                <div class="form-controls col-xs-12 col-sm-4">
+                  <span class="select-box">
+                    <select class="select" name="source">
+                      {voList name="bList" id="bl"}
+                      <option value="{$bl.id}" {if condition="$bl.id eq $list.source"}selected{/if}>{$bl.name}</option>
+                      {/voList}
+                    </select>
+                  </span>
+                </div>
+
+                <div class="form-controls col-xs-12 col-sm-3">
+                  <span class="select-box">
+                    <select class="select" name="level">
+                      <option value=""></option>
+                      {voList name="dList" id="dl"}
+                      <option value="{$dl.id}" {if condition="$dl.id eq $list.level"}selected{/if}>{$dl.name}</option>
+                      {/voList}
+                    </select>
+                  </span>
+                </div>
+
+                <div class="form-controls col-xs-12 col-sm-3">
+                  <span class="select-box">
+                    <select class="select" id="atype" name="atype">
+                      {voList name="aList" id="al"}
+                      <option value="{$al.id}" {if condition="$al.id eq $list.atype"}selected{/if}>{$al.name}</option>
+                      {/voList}
+                    </select>
+                  </span>
+                </div>
+              </div>
+
+              <div class="row clearfix">
+                <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>姓名：</label>
+                <div class="form-controls col-xs-12 col-sm-7">
+                  <input type="text" class="input-text" name="name" value="{$list.name}">
+                </div>
+                <div class="form-controls col-xs-12 col-sm-3">
+                  <span class="select-box">
+                    <select name="sex" class="select">
+                      <option value="0" {if condition="0 eq $list.sex"}selected{/if}>未知</option>
+                      <option value="1" {if condition="1 eq $list.sex"}selected{/if}>先生</option>
+                      <option value="2" {if condition="2 eq $list.sex"}selected{/if}>女士</option>
+                    </select>
+                  </span>
+                </div>
+              </div>
+
+              <div class="row clearfix">
+                <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>电话：</label>
+                <div class="form-controls col-xs-12 col-sm-4">
+                  <input type="text" class="input-text" id="tel" value="{$list.tel}" readonly="readonly">
+                </div>
+                <div class="form-controls col-xs-12 col-sm-3">
+                  <input type="button" class="btn btn-primary radius" value="查看" onclick="getTel()">
+                </div>
+                <div class="form-controls col-xs-12 col-sm-3">
+                  <input type="text" class="input-text" value="{$list.orgName}" disabled="disabled">
+                </div>
+              </div>
+
+              <div class="row clearfix">
+                <label class="form-label col-xs-12 col-sm-2">归属人：</label>
+                <div class="form-controls col-xs-12 col-sm-7">
+                  <input type="hidden" id="aid" name="aid" value="{$list.aid}">
+                  <input type="text" class="input-text" id="aname" value="{$list.aname}" disabled="disabled">
+                </div>
+                <div class="form-controls col-xs-12 col-sm-3">
+                  <input type="button" class="btn btn-primary radius" value="选择" onclick="openFrom('选择','../search/User')">
+                  <input type="button" class="btn btn-primary radius" value="清空" onclick="clearData('aname')">
+                </div>
+              </div>
+
+              <div class="row clearfix">
+                <label class="form-label col-xs-12 col-sm-2">项目：</label>
+                <div class="form-controls col-xs-12 col-sm-7">
+                  <input type="hidden" id="itemid" name="itemid" value="{$list.itemid}">
+                  <input type="text" class="input-text" id="itemname" value="{$list.itemname}" disabled="disabled">
+                </div>
+                <div class="form-controls col-xs-12 col-sm-3">
+                  <input type="button" class="btn btn-primary radius" value="选择" onclick="openFrom('选择','../search/Item')">
+                  <input type="button" class="btn btn-primary radius" value="清空" onclick="clearData('itemname')">
+                </div>
+              </div>
+
+              <div class="row clearfix">
+                <label class="form-label col-xs-12 col-sm-2">快捷跟进：</label>
+                <div class="form-controls col-xs-12 col-sm-10">
+                  <textarea class="textarea textarea-article" name="description" placeholder="{$list.description}"></textarea>
+                </div>
+              </div>
+
+              <div class="row clearfix">
+                <div class="col-xs-7 col-sm-10 col-xs-offset-3 col-sm-offset-2">
+                  <button type="submit" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+                  <button type="button" class="btn btn-default radius" onClick="layer_close()">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="tabCon">
+            <form class="form form-horizontal">
+              <div class="row clearfix">
+                <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>录入人：</label>
+                <div class="form-controls col-xs-12 col-sm-4">
+                  <input type="text" class="input-text" value="{$list.cname}" disabled="disabled">
+                </div>
+
+                <label class="form-label col-xs-12 col-sm-2"><span class="c-red">*</span>录入时间：</label>
+                <div class="form-controls col-xs-12 col-sm-4">
+                  <input type="text" class="input-text" value="{$list.ctime}" disabled="disabled">
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/addjs" /}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+  let myDataTable;
+
+  $(function() {
+    initData();
+    initBind();
+  });
+
+  function initData() {
+    let myDate = new Date();
+    $('#search-datetime-start').val(myDate.Format("2019-MM-dd"));
+    $('#search-datetime-end').val(myDate.Format("yyyy-MM-dd"));
+  }
+
+  function initBind() {
+    runDatetimePicker(); // 实例化日期控件
+
+    $("#tab-system").Huitab();
+
+    $("#form-edit").validate({
+      rules: {
+        name: {required: true, minlength: 1, maxlength: 20}
+      },
+      onkeyup: false,
+      focusCleanup: true,
+      success: "valid",
+      submitHandler: function (form) {
+        //$(form).ajaxSubmit();
+        layer.confirm('确认保存吗？', function (index) {
+          $.ajax({
+            "type": "post",
+            "url": "CustomerEdit",
+            "data": $('#form-edit').serialize(),
+            "async": false,
+            "success": function (result) {
+              switch (result['code']) {
+                case 1:
+                  layer.msg(result['message'], {icon: 5, time: 2000});
+                  break;
+                case 2:
+                  parent.Message(result['message']);
+                  layer_close();
+                  break;
+              }
+            }
+          });
+        });
+      }
+    });
+
+    $("#atype").change(function () {
+      $("#aid").val("");
+      $("#aname").val("");
+    });
+
+    // 文章摘要
+    $(".textarea-article").Huitextarealength({
+      minlength: 0,
+      maxlength: 100
+    });
+
+    initDataTable('.table-sort', "{:url('search/Followup')}");
+  }
+
+  function retrieveData( sSource, aoData, fnCallback ) {
+    aoData.push(
+            {"name": "hid", "value": $('#id').val()},
+            {"name": "dateMin", "value": $('#search-datetime-start').val()},
+            {"name": "dateMax", "value": $('#search-datetime-end').val()},
+            {"name": "aType", "value": $('#saType').val()}
+    );
+
+    $.ajax({
+      "type": "post",
+      "url": sSource,
+      "data": {aoData: JSON.stringify(aoData)}, // 以json格式传递
+      "dataType": "json",
+      "async": false,
+      "success": function (result) {
+        fnCallback(result);
+      }
+    });
+  }
+
+  function getTel() {
+    let tel = $("#tel");
+    if (tel.val().indexOf("*")> 0) {
+      let id = $("#id").val();
+      $.ajax({
+        "type": "post",
+        "url": "{:url('getTel')}",
+        "data": {id: id}, // 以json格式传递
+        "dataType": "json",
+        "async": false,
+        "success": function (result) {
+          if (result != "") {
+            tel.val(result['tel']);
+          } else {
+            layer.msg('查看全号失败!', {icon: 5, time: 1000});
+          }
+        }
+      })
+    } else {
+      layer.msg('已显示全号!', {icon: 6, time: 1000});
+    }
+  }
+
+  function setFromData(data, sign) {
+    switch (sign) {
+      case 'user':
+        $("#aid").val(data[0]);
+        $("#aname").val(data[2]);
+        break;
+      case 'item':
+        $("#itemid").val(data[0]);
+        $("#itemname").val(data[1]);
+        break;
+    }
+  }
+
+  function clearData(sign) {
+    switch (sign) {
+      case "aname":
+        $("#aid").val("");
+        $("#aname").val("");
+        break;
+      case "itemname":
+        $("#itemid").val("");
+        $("#itemname").val("");
+        break;
+    }
+  }
+
+  // 提示
+  function Message(msg) {
+    RefreshTable(false);
+    layer.msg(msg,{icon: 6,time:1000});
+  }
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+{include file="template/footer" /}

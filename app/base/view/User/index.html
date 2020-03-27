@@ -1,0 +1,125 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select class="select" id="sStatus" name="sStatus">
+                    <option value="0">全部状态</option>
+                    <option value="1">已停用</option>
+                    <option value="2" selected>已启用</option>
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select class="select" id="teamId">
+                    <option value="0">全部团队</option>
+                    {voList name="aList" id="al"}
+                    <option value="{$al.id}">{$al.name}</option>
+                    {/voList}
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="sCode" name="sCode" placeholder="输入编号">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text" id="sName" name="sName" placeholder="输入登录账号">
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <button type="button" class="btn btn-success radius" onclick="RefreshTable(true)"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-20">
+      <div class="panel-body">
+        <div class="clearfix">
+          <span class="f-l">
+            <button type="button" class="btn btn-primary radius" onclick="openFrom('添加','UserAdd')"><i class="Hui-iconfont">&#xe600;</i> 添加</button>
+            <button type="button" class="btn btn-primary radius" onclick="openNewFrom('编辑','UserEdit?id=')"><i class="Hui-iconfont">&#xe6df;</i> 编辑</button>
+            <button type="button" class="btn btn-primary radius" onclick="openNewFrom('修改密码','UserChangePassword?id=')"><i class="Hui-iconfont">&#xe63f;</i> 修改密码</button>
+          </span>
+        </div>
+
+        <div class="clearfix mt-20">
+          <table class="table table-border table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+              <th width="250">唯一码</th>
+              <th width="60">团队</th>
+              <th width="60">编号</th>
+              <th width="80">登录账号</th>
+              <th width="80">姓名</th>
+              <th width="80">入职日期</th>
+              <th width="80">离职日期</th>
+              <th width="500">描述</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/indexjs" /}
+
+<script type="text/javascript">
+  var myDataTable;
+
+  $(function(){
+    initBind();
+  });
+
+  function initBind() {
+    initDataTable('.table-sort', "{:url('User')}");
+    tabledblclick('.table-sort', '编辑', 'UserEdit');
+  }
+
+  function retrieveData( sSource, aoData, fnCallback ) {
+    aoData.push(
+            {"name": "status", "value": $('#sStatus').val()},
+            {"name": "teamId", "value": $('#teamId').val()},
+            {"name": "sCode", "value": $('#sCode').val()},
+            {"name": "sName", "value": $('#sName').val()}
+    );
+
+    postData(sSource, aoData, fnCallback);
+  }
+</script>
+
+{include file="template/footer" /}

@@ -1,0 +1,127 @@
+{include file="template/head" /}
+
+<body>
+<div class="wap-container">
+  <article class="Hui-admin-content clearfix">
+    <div class="panel">
+      <div class="panel-body">
+        <div class="row clearfix">
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <span class="select-box">
+                  <select id="sDateType" class="select">
+                    <option value="1">提交日期</option>
+                  </select>
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text datetimepicker-input" id="search-datetime-start" placeholder="开始日期" >
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" class="input-text datetimepicker-input" id="search-datetime-end" placeholder="截止日期" >
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" id="sTel" class="input-text" placeholder="输入电话" >
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <input type="text" id="sItem" class="input-text" placeholder="输入项目" >
+              </span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 col-md-2">
+            <div class="row clearfix mb-10">
+              <span class="col-xs-12 form-item-control">
+                <button type="button" class="btn btn-success radius" onclick="RefreshTable(true)"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="panel mt-20">
+      <div class="panel-body">
+        <div class="clearfix">
+          <table class="table table-border table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+              <th width="120">唯一码</th>
+              <th width="150">提交时间</th>
+              <th width="120">项目</th>
+              <th width="80">姓名</th>
+              <th width="100">电话</th>
+              <th width="300">备注</th>
+              <th width="300">IP</th>
+            </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>
+
+{include file="template/indexjs" /}
+
+<script type="text/javascript">
+  var myDataTable;
+
+  $(function(){
+    initData();
+    initBind();
+  });
+
+  function initData() {
+    var myDate = new Date();
+    $('#search-datetime-start').val(myDate.Format("yyyy-MM-01"));
+    $('#search-datetime-end').val(myDate.Format("yyyy-MM-dd"));
+  }
+
+  function initBind() {
+    runDatetimePicker(); // 实例化日期控件
+
+    var o = new Array();
+    initDataTable('.table-sort', "{:url('ExternalCustomer')}");
+    tabledblclick('.table-sort', '查看详细', 'ExternalCustomerView');
+  }
+
+  function retrieveData( sSource, aoData, fnCallback ) {
+    aoData.push(
+            {"name": "dbSign", "value": $('#dbSign').val()},
+            {"name": "dateType", "value": $('#sDateType').val()},
+            {"name": "dateMin", "value": $('#search-datetime-start').val()},
+            {"name": "dateMax", "value": $('#search-datetime-end').val()},
+            {"name": "Tel", "value": $('#sTel').val()},
+            {"name": "Item", "value": $('#sItem').val()}
+    );
+
+    postData(sSource, aoData, fnCallback);
+  }
+</script>
+
+{include file="template/footer" /}
